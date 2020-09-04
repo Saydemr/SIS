@@ -76,7 +76,6 @@ public class LoginInfoPanel extends JPanel {
         this.add(radioButtonPanel);
         this.add(initiateSession);
 
-
     }
 
     public static class openSessionListener implements ActionListener {
