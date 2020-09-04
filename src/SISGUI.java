@@ -1,26 +1,11 @@
-// GUI feel code inherited from LamalasGD
-
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.Select;
-
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.*;
 
 public class SISGUI {
-    static LoginInfoPanel loginInfoPanel;
-    static JFrame frame;
-
-    static String OsInfo;
 
     public static void main(String[] args) {
 
-        OsInfo = System.getProperty("os.name").split(" ")[0];
-        System.out.println(OsInfo);
+        String OsInfo = System.getProperty("os.name").split(" ")[0];
 
         if (OsInfo.equals("Linux")) {
             JOptionPane.showMessageDialog(null, "Linux is not supported");
@@ -39,20 +24,19 @@ public class SISGUI {
             e.printStackTrace();
         }
 
+        // Thanks to https://github.com/EsadSimitcioglu
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                frame = new JFrame("OneClick");
+                JFrame frame = new JFrame("OneClick");
 
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setSize(650, 900);
                 frame.setMinimumSize(new Dimension(650, 875));
                 frame.setResizable(false);
-
                 frame.setLayout(new BorderLayout());
 
-                loginInfoPanel = new LoginInfoPanel(frame);
-
+                LoginInfoPanel loginInfoPanel = new LoginInfoPanel(frame);
 
                 frame.pack();
                 frame.setLocationRelativeTo(null);
