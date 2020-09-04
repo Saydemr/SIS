@@ -32,7 +32,7 @@ public class LoginInfoPanel extends JPanel {
         this.jFrame = jFrame;
         OsInfo = System.getProperty("os.name").split(" ")[0];
 
-        this.setLayout(new GridLayout(3, 2, 5, 5));
+        this.setLayout(new GridLayout(3, 2, 7, 7));
         this.setBorder(BorderFactory.createTitledBorder("SIS Login Info"));
         JLabel username = new JLabel("Username");
         JLabel password = new JLabel("Password");
@@ -102,7 +102,7 @@ public class LoginInfoPanel extends JPanel {
             }
 
             if (loginCheck) {
-                loginInfoPanel.jFrame.setVisible(false);
+
                 JTabbedPane jTabbedPane = new JTabbedPane();
 
                 CourseRegistrationPanel courseRegistrationPanel = new CourseRegistrationPanel();
@@ -119,7 +119,7 @@ public class LoginInfoPanel extends JPanel {
                 loginInfoPanel.jFrame.add(jTabbedPane, BorderLayout.NORTH);
                 loginInfoPanel.jFrame.repaint();
                 loginInfoPanel.jFrame.revalidate();
-                loginInfoPanel.jFrame.setVisible(true);
+
             }
         }
     }
