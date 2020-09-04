@@ -1,6 +1,8 @@
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class WaitListPanel extends JPanel {
 
@@ -12,8 +14,16 @@ public class WaitListPanel extends JPanel {
 
         JButton startWaitList = new JButton("Start WaitListing Process");
         this.add(startWaitList, BorderLayout.SOUTH);
-        startWaitList.setBackground(new java.awt.Color(117, 94, 168, 255));
+        startWaitList.addActionListener(new waitListListener());
 
+
+
+    }
+    public class waitListListener implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+            // TODO Implement selenium browser
+        }
     }
 
 }

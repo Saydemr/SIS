@@ -29,7 +29,6 @@ public class LoginInfoPanel extends JPanel {
     EdgeDriver edgeDriver;
     OperaDriver operaDriver;
 
-
     String OsInfo;
 
     public LoginInfoPanel(JFrame jFrame) {
@@ -75,7 +74,6 @@ public class LoginInfoPanel extends JPanel {
         this.add(passwordField);
         this.add(radioButtonPanel);
         this.add(initiateSession);
-
     }
 
     public static class openSessionListener implements ActionListener {
@@ -98,9 +96,7 @@ public class LoginInfoPanel extends JPanel {
                     loginCheck = loginInfoPanel.firefox();
                 } else if (loginInfoPanel.chrome.isSelected()) {
                     loginCheck = loginInfoPanel.chrome();
-
                 } else if (loginInfoPanel.opera.isSelected()) {
-
                     loginCheck = loginInfoPanel.opera();
                 } else {
                     JOptionPane.showMessageDialog(null, "Please select the browser you are using in this computer");
@@ -125,13 +121,23 @@ public class LoginInfoPanel extends JPanel {
                 loginInfoPanel.jFrame.repaint();
                 loginInfoPanel.jFrame.revalidate();
                 loginInfoPanel.jFrame.setVisible(true);
-            } else {
 
+            } else {
+                JOptionPane.showMessageDialog(null,"Login info is not correct. Please try again.");
+                if (loginInfoPanel.edge.isSelected()) {
+                   loginInfoPanel.edgeDriver.quit();
+                } else if (loginInfoPanel.firefox.isSelected()) {
+                    loginInfoPanel.firefoxDriver.quit();
+                } else if (loginInfoPanel.chrome.isSelected()) {
+                    loginInfoPanel.chromeDriver.quit();
+                } else if (loginInfoPanel.opera.isSelected()) {
+                    loginInfoPanel.operaDriver.quit();
+                } else {
+                    System.out.println("WTF. How the world you jumped here ?");
+                    System.exit(-1);
+                }
             }
         }
-
-
-
     }
 
     private boolean chrome() {
