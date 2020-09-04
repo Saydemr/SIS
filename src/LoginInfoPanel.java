@@ -100,6 +100,7 @@ public class LoginInfoPanel extends JPanel {
                 }
 
             }
+
             if (loginCheck) {
                 loginInfoPanel.jFrame.setVisible(false);
                 JTabbedPane jTabbedPane = new JTabbedPane();
