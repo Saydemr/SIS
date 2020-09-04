@@ -1,19 +1,24 @@
-import org.openqa.selenium.WebDriver;
+
+
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.opera.*;
+
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 public class LoginInfoPanel extends JPanel {
     JButton initiateSession;
     JRadioButton edge;
     JRadioButton firefox;
     JRadioButton chrome;
+    JRadioButton opera;
     JTextField usernameField;
     JPasswordField passwordField;
     JFrame jFrame;
@@ -22,6 +27,8 @@ public class LoginInfoPanel extends JPanel {
     ChromeDriver chromeDriver;
     FirefoxDriver firefoxDriver;
     EdgeDriver edgeDriver;
+    OperaDriver operaDriver;
+
 
     String OsInfo;
 
@@ -39,7 +46,6 @@ public class LoginInfoPanel extends JPanel {
 
         this.passwordField.setEchoChar('*');
 
-
         initiateSession = new JButton("OPEN SESSION");
         jFrame.add(this, BorderLayout.NORTH);
         this.initiateSession.addActionListener(new openSessionListener(loginInfoPanel));
@@ -49,15 +55,18 @@ public class LoginInfoPanel extends JPanel {
         edge = new JRadioButton("Edge");
         firefox = new JRadioButton("Firefox");
         chrome = new JRadioButton("Chrome");
+        opera = new JRadioButton("Opera");
 
         buttonGroup.add(edge);
         buttonGroup.add(firefox);
         buttonGroup.add(chrome);
+        buttonGroup.add(opera);
 
         JPanel radioButtonPanel = new JPanel();
         radioButtonPanel.add(edge);
         radioButtonPanel.add(firefox);
         radioButtonPanel.add(chrome);
+        radioButtonPanel.add(opera);
         edge.setSelected(true);
 
         this.add(username);
@@ -90,6 +99,10 @@ public class LoginInfoPanel extends JPanel {
                     loginCheck = loginInfoPanel.firefox();
                 } else if (loginInfoPanel.chrome.isSelected()) {
                     loginCheck = loginInfoPanel.chrome();
+
+                } else if (loginInfoPanel.opera.isSelected()) {
+
+                    loginCheck = loginInfoPanel.opera();
                 } else {
                     JOptionPane.showMessageDialog(null, "Please select the browser you are using in this computer");
                 }
@@ -239,6 +252,46 @@ public class LoginInfoPanel extends JPanel {
                 return false;
             }
 
+        } catch (InterruptedException e) {
+            JOptionPane.showMessageDialog(null, "Please restart the session.");
+            return false;
+        }
+        return true;
+    }
+    private boolean opera() {
+        try {
+            String path = System.getProperty("user.dir");
+
+            String username = loginInfoPanel.usernameField.getText();
+            String password = loginInfoPanel.passwordField.getText();
+            String url = "https://sis.ozyegin.edu.tr/OZU_GWT/login.jsp";
+
+            if (OsInfo.equals("Windows")) {
+                System.setProperty("webdriver.opera.driver", path + "\\Woperadriver.exe");
+            } else if (OsInfo.equals("Mac")){
+
+            }
+
+            operaDriver = new OperaDriver();
+
+            try {
+                operaDriver.get(url);
+            } catch (Exception e) {
+                operaDriver.findElementById("enableTls10Button").click();
+            }
+
+            operaDriver.findElementById("username").sendKeys(username);
+            operaDriver.findElementById("password").sendKeys(password);
+            Select select = new Select(operaDriver.findElementById("language"));
+            select.selectByValue("en");
+            operaDriver.findElementById("submit").click();
+
+            Thread.sleep(1500);
+
+            if (operaDriver.getCurrentUrl().equals("https://sis.ozyegin.edu.tr/OZU_GWT/login.jsp")) {
+                JOptionPane.showMessageDialog(null, "Invalid login info. Please close the browser and start again.");
+                return false;
+            }
         } catch (InterruptedException e) {
             JOptionPane.showMessageDialog(null, "Please restart the session.");
             return false;
