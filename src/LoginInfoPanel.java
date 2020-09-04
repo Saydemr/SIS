@@ -119,21 +119,10 @@ public class LoginInfoPanel extends JPanel {
                 loginInfoPanel.jFrame.repaint();
                 loginInfoPanel.jFrame.revalidate();
                 loginInfoPanel.jFrame.setVisible(true);
-
-            } else {
-                JOptionPane.showMessageDialog(null,"Login info is not correct. Please try again.");
-                if (loginInfoPanel.edge.isSelected()) {
-                   loginInfoPanel.edgeDriver.quit();
-                } else if (loginInfoPanel.firefox.isSelected()) {
-                    loginInfoPanel.firefoxDriver.quit();
-                } else if (loginInfoPanel.chrome.isSelected()) {
-                    loginInfoPanel.chromeDriver.quit();
-                } else if (loginInfoPanel.opera.isSelected()) {
-                    loginInfoPanel.operaDriver.quit();
-                } else {
-                    System.out.println("WTH. How the world you jumped here ?");
-                    System.exit(-1);
-                }
+            }
+            else {
+                System.out.println("WTH. How the world you even jumped here ?");
+                System.exit(-1);
             }
         }
     }
@@ -170,12 +159,14 @@ public class LoginInfoPanel extends JPanel {
             Thread.sleep(1500);
 
             if (chromeDriver.getCurrentUrl().equals("https://sis.ozyegin.edu.tr/OZU_GWT/login.jsp")) {
-                JOptionPane.showMessageDialog(null, "Invalid login info. Please close the browser and start again.");
+                JOptionPane.showMessageDialog(null, "Invalid login info. Please start again.");
+                chromeDriver.quit();
                 return false;
             }
 
         } catch (InterruptedException e) {
             JOptionPane.showMessageDialog(null, "Please restart the session.");
+            chromeDriver.quit();
             return false;
         }
         return true;
@@ -211,11 +202,13 @@ public class LoginInfoPanel extends JPanel {
             Thread.sleep(1500);
 
             if (firefoxDriver.getCurrentUrl().equals("https://sis.ozyegin.edu.tr/OZU_GWT/login.jsp")) {
-                JOptionPane.showMessageDialog(null, "Invalid login info. Please close the browser and start again.");
+                JOptionPane.showMessageDialog(null, "Invalid login info. Please start again.");
+                firefoxDriver.quit();
                 return false;
             }
         } catch (InterruptedException e) {
             JOptionPane.showMessageDialog(null, "Please restart the session.");
+            firefoxDriver.quit();
             return false;
         }
         return true;
@@ -251,12 +244,14 @@ public class LoginInfoPanel extends JPanel {
 
             Thread.sleep(1500);
             if (edgeDriver.getCurrentUrl().equals("https://sis.ozyegin.edu.tr/OZU_GWT/login.jsp")) {
-                JOptionPane.showMessageDialog(null, "Invalid login info. Please close the browser and start again.");
+                JOptionPane.showMessageDialog(null, "Invalid login info. Please start again.");
+                edgeDriver.quit();
                 return false;
             }
 
         } catch (InterruptedException e) {
             JOptionPane.showMessageDialog(null, "Please restart the session.");
+            edgeDriver.quit();
             return false;
         }
         return true;
@@ -292,11 +287,13 @@ public class LoginInfoPanel extends JPanel {
             Thread.sleep(1500);
 
             if (operaDriver.getCurrentUrl().equals("https://sis.ozyegin.edu.tr/OZU_GWT/login.jsp")) {
-                JOptionPane.showMessageDialog(null, "Invalid login info. Please close the browser and start again.");
+                JOptionPane.showMessageDialog(null, "Invalid login info. Please start again.");
+                operaDriver.quit();
                 return false;
             }
         } catch (InterruptedException e) {
             JOptionPane.showMessageDialog(null, "Please restart the session.");
+            operaDriver.quit();
             return false;
         }
         return true;

@@ -59,7 +59,6 @@ public class AddCoursePanel extends JPanel {
 
         public void actionPerformed(ActionEvent e) {
             courseRegistrationPanel.deleteLastRowFromList();
-
         }
     }
 }

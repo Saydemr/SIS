@@ -32,7 +32,7 @@ public class SISGUI {
 
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setSize(650, 900);
-                frame.setMinimumSize(new Dimension(650, 750));
+                frame.setMinimumSize(new Dimension(550, 700));
                 frame.setResizable(false);
                 frame.setLayout(new BorderLayout());
 
