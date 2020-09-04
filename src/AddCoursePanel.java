@@ -29,7 +29,7 @@ public class AddCoursePanel extends JPanel {
 
         JPanel addDelete = new JPanel();
 
-        JButton addCourse = new JButton("      Add Course     ");
+        JButton addCourse = new JButton("Add Course");
         addCourse.addActionListener(new addCourseListener());
 
         JButton deleteCourse = new JButton("Delete Last Course");

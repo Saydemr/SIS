@@ -120,10 +120,6 @@ public class LoginInfoPanel extends JPanel {
                 loginInfoPanel.jFrame.revalidate();
                 loginInfoPanel.jFrame.setVisible(true);
             }
-            else {
-                System.out.println("WTH. How the world you even jumped here ?");
-                System.exit(-1);
-            }
         }
     }
 
@@ -217,7 +213,7 @@ public class LoginInfoPanel extends JPanel {
 
         try {
             String path = System.getProperty("user.dir");
-            System.out.println(path);
+
             String username = loginInfoPanel.usernameField.getText();
             String password = loginInfoPanel.passwordField.getText();
             String url = "https://sis.ozyegin.edu.tr/OZU_GWT/login.jsp";
