@@ -7,7 +7,6 @@ public class WaitListCoursesPanel extends JPanel {
     public WaitListCoursesPanel(WaitListPanel waitListPanel) {
         this.waitListPanel = waitListPanel;
 
-
         this.setLayout(new GridLayout(12, 3, 10, 20));
         this.setBorder(BorderFactory.createTitledBorder("Course Info"));
 
@@ -49,7 +48,5 @@ public class WaitListCoursesPanel extends JPanel {
             empty.setVisible(false);
             this.add(empty);
         }
-
-
     }
 }

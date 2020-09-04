@@ -1,14 +1,10 @@
-
-
 import javax.swing.*;
 import java.awt.*;
-
 
 public class CourseRegistrationPanel extends JPanel {
 
     private AddCoursePanel addCoursePanel;
     private CoursesPanel coursesPanel;
-
 
     public CourseRegistrationPanel() {
         this.setLayout(new BorderLayout());
@@ -21,11 +17,9 @@ public class CourseRegistrationPanel extends JPanel {
 
         this.repaint();
         this.revalidate();
-
     }
 
     public void addCourseToList(String id, String section) {
-
         this.coursesPanel.addCourses(id, section);
     }
 
