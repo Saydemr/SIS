@@ -113,8 +113,9 @@ public class LoginInfoPanel extends JPanel {
                 loginInfoPanel.edge.setEnabled(false);
                 loginInfoPanel.firefox.setEnabled(false);
                 loginInfoPanel.chrome.setEnabled(false);
+                loginInfoPanel.setVisible(false);
 
-                loginInfoPanel.jFrame.add(jTabbedPane, BorderLayout.CENTER);
+                loginInfoPanel.jFrame.add(jTabbedPane, BorderLayout.NORTH);
                 loginInfoPanel.jFrame.repaint();
                 loginInfoPanel.jFrame.revalidate();
                 loginInfoPanel.jFrame.setVisible(true);
@@ -130,7 +131,7 @@ public class LoginInfoPanel extends JPanel {
                 } else if (loginInfoPanel.opera.isSelected()) {
                     loginInfoPanel.operaDriver.quit();
                 } else {
-                    System.out.println("WTF. How the world you jumped here ?");
+                    System.out.println("WTH. How the world you jumped here ?");
                     System.exit(-1);
                 }
             }
