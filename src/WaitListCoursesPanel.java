@@ -7,6 +7,7 @@ public class WaitListCoursesPanel extends JPanel {
     public WaitListCoursesPanel(WaitListPanel waitListPanel) {
         this.waitListPanel = waitListPanel;
 
+
         this.setLayout(new GridLayout(12, 3, 10, 20));
         this.setBorder(BorderFactory.createTitledBorder("Course Info"));
 
@@ -21,7 +22,7 @@ public class WaitListCoursesPanel extends JPanel {
         JCheckBox enrolled1 = new JCheckBox();
 
         JTextField course2 = new JTextField();
-        JSpinner frequency2 = new JSpinner(new SpinnerNumberModel(30, 5, 60, 0.5));
+        JSpinner frequency2 = new JSpinner(new SpinnerNumberModel(30, 2.5, 60, 0.5));
         JCheckBox enrolled2 = new JCheckBox();
 
         course2.setVisible(false);
