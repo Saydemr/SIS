@@ -12,8 +12,8 @@ public class CourseRegistrationPanel extends JPanel {
         addCoursePanel = new AddCoursePanel(this);
         coursesPanel = new CoursesPanel(this);
 
-        this.add(addCoursePanel, BorderLayout.CENTER);
-        this.add(coursesPanel, BorderLayout.SOUTH);
+        this.add(addCoursePanel, BorderLayout.NORTH);
+        this.add(coursesPanel, BorderLayout.CENTER);
 
         this.repaint();
         this.revalidate();

@@ -102,6 +102,8 @@ public class LoginInfoPanel extends JPanel {
             }
 
             if (loginCheck) {
+                loginInfoPanel.jFrame.setSize(new Dimension(600,775));
+                loginInfoPanel.jFrame.setResizable(false);
 
                 JTabbedPane jTabbedPane = new JTabbedPane();
 

@@ -12,17 +12,13 @@ public class AddCoursePanel extends JPanel {
         this.courseRegistrationPanel = courseRegistrationPanel;
         this.setBorder(BorderFactory.createTitledBorder("Add Courses"));
 
-        this.setLayout(new GridLayout(5, 2));
+        this.setLayout(new GridLayout(5, 2,5,5));
 
         JLabel courseID = new JLabel("Course ID");
         JLabel section = new JLabel("Section");
-        JLabel faculty = new JLabel("Faculty");
-
-        faculty.setVisible(false);
 
         idField = new JTextField();
         sectionField = new JTextField();
-        JLabel facultyLabel = new JLabel();
 
         JLabel empty = new JLabel();
         empty.setVisible(false);
@@ -42,8 +38,6 @@ public class AddCoursePanel extends JPanel {
         this.add(idField);
         this.add(section);
         this.add(sectionField);
-        this.add(faculty);
-        this.add(facultyLabel);
         this.add(empty);
         this.add(addDelete);
     }
