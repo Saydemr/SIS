@@ -1,3 +1,4 @@
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -29,6 +30,7 @@ public class LoginInfoPanel extends JPanel {
     EdgeDriver edgeDriver;
     OperaDriver operaDriver;
     SafariDriver safariDriver;
+
 
     String OsInfo;
 
@@ -76,6 +78,7 @@ public class LoginInfoPanel extends JPanel {
         }
         else if (OsInfo.equals("Mac")) {
             radioButtonPanel.add(safari);
+            safari.setSelected(true);
         }
 
         this.add(username);
@@ -108,7 +111,10 @@ public class LoginInfoPanel extends JPanel {
                     loginCheck = loginInfoPanel.chrome();
                 } else if (loginInfoPanel.opera.isSelected()) {
                     loginCheck = loginInfoPanel.opera();
-                } else {
+                } else if (loginInfoPanel.safari.isSelected()) {
+                    loginCheck = loginInfoPanel.safari();
+                }
+                else {
                     JOptionPane.showMessageDialog(null, "Please select the browser you are using in this computer");
                 }
 
@@ -314,18 +320,14 @@ public class LoginInfoPanel extends JPanel {
     }
     private boolean safari() {
         try {
-            String path = System.getProperty("user.dir");
 
             String username = loginInfoPanel.usernameField.getText();
             String password = loginInfoPanel.passwordField.getText();
             String url = "https://sis.ozyegin.edu.tr/OZU_GWT/login.jsp";
 
-            if (OsInfo.equals("Windows")) {
+            if (!OsInfo.equals("Mac")) {
                JOptionPane.showMessageDialog(null,"You should not be here");
                System.exit(-1);
-            } else if (OsInfo.equals("Mac")){
-                Runtime.getRuntime().exec("safaridriver --enable");
-                System.setProperty("webdriver.safari.driver", "usr/bin/safaridriver");
             }
 
             safariDriver = new SafariDriver();
@@ -349,7 +351,7 @@ public class LoginInfoPanel extends JPanel {
                 safariDriver.quit();
                 return false;
             }
-        } catch (InterruptedException | IOException e) {
+        } catch (InterruptedException e) {
             JOptionPane.showMessageDialog(null, "Please restart the session.");
             safariDriver.quit();
             return false;
