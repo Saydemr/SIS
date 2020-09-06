@@ -1,2 +1,4 @@
 /.idea/
 /out/production/SIS/
+/out/artifacts/SIS_jar/SIS.jar
+/src/META-INF/MANIFEST.MF
