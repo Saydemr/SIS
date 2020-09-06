@@ -31,13 +31,12 @@ public class SISGUI {
                 JFrame frame = new JFrame("OneClick");
 
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-                frame.setSize(new Dimension());
                 frame.setMinimumSize(new Dimension(500,750));
 
                 frame.setLayout(new BorderLayout());
 
                 LoginInfoPanel loginInfoPanel = new LoginInfoPanel(frame);
+                frame.add(loginInfoPanel, BorderLayout.NORTH);
 
                 frame.pack();
                 frame.setLocationRelativeTo(null);

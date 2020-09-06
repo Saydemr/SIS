@@ -1,3 +1,4 @@
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -46,7 +47,6 @@ public class LoginInfoPanel extends JPanel {
         this.passwordField.setEchoChar('*');
 
         initiateSession = new JButton("OPEN SESSION");
-        jFrame.add(this, BorderLayout.NORTH);
         this.initiateSession.addActionListener(new openSessionListener(loginInfoPanel));
 
         ButtonGroup buttonGroup = new ButtonGroup();
@@ -179,6 +179,14 @@ public class LoginInfoPanel extends JPanel {
                 return false;
             }
 
+            try {
+                WebElement frame = chromeDriver.findElementByCssSelector("[id^='SIS']");
+                chromeDriver.switchTo().frame(frame);
+                chromeDriver.findElementById("isc_23").click();
+            }
+            catch (Exception ignored) {
+            }
+
         } catch (InterruptedException | IOException e) {
             JOptionPane.showMessageDialog(null, "Please restart the session.");
             chromeDriver.quit();
@@ -221,6 +229,14 @@ public class LoginInfoPanel extends JPanel {
                 firefoxDriver.quit();
                 return false;
             }
+
+            try {
+                WebElement frame = firefoxDriver.findElementByCssSelector("[id^='SIS']");
+                firefoxDriver.switchTo().frame(frame);
+                firefoxDriver.findElementById("isc_23").click();
+            }
+            catch (Exception ignored) {
+            }
         } catch (InterruptedException e) {
             JOptionPane.showMessageDialog(null, "Please restart the session.");
             firefoxDriver.quit();
@@ -262,6 +278,14 @@ public class LoginInfoPanel extends JPanel {
                 JOptionPane.showMessageDialog(null, "Invalid login info. Please start again.");
                 edgeDriver.quit();
                 return false;
+            }
+
+            try {
+                WebElement frame = edgeDriver.findElementByCssSelector("[id^='SIS']");
+                edgeDriver.switchTo().frame(frame);
+                edgeDriver.findElementById("isc_23").click();
+            }
+            catch (Exception ignored) {
             }
 
         } catch (InterruptedException e) {
@@ -307,6 +331,14 @@ public class LoginInfoPanel extends JPanel {
                 operaDriver.quit();
                 return false;
             }
+
+            try {
+                WebElement frame = operaDriver.findElementByCssSelector("[id^='SIS']");
+                operaDriver.switchTo().frame(frame);
+                operaDriver.findElementById("isc_23").click();
+            }
+            catch (Exception ignored) {
+            }
         } catch (InterruptedException | IOException e) {
             JOptionPane.showMessageDialog(null, "Please restart the session.");
             operaDriver.quit();
@@ -346,6 +378,13 @@ public class LoginInfoPanel extends JPanel {
                 JOptionPane.showMessageDialog(null, "Invalid login info. Please start again.");
                 safariDriver.quit();
                 return false;
+            }
+            try {
+                WebElement frame = safariDriver.findElementByCssSelector("[id^='SIS']");
+                safariDriver.switchTo().frame(frame);
+                safariDriver.findElementById("isc_23").click();
+            }
+            catch (Exception ignored) {
             }
         } catch (InterruptedException e) {
             JOptionPane.showMessageDialog(null, "Please restart the session.");
