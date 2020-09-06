@@ -114,7 +114,6 @@ public class LoginInfoPanel extends JPanel {
                 else {
                     JOptionPane.showMessageDialog(null, "Please select the browser you are using in this computer");
                 }
-
             }
 
             if (loginCheck) {
