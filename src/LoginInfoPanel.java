@@ -140,7 +140,6 @@ public class LoginInfoPanel extends JPanel {
             }
         }
     }
-
     private boolean chrome() {
 
         try {
@@ -182,7 +181,7 @@ public class LoginInfoPanel extends JPanel {
             try {
                 WebElement frame = chromeDriver.findElementByCssSelector("[id^='SIS']");
                 chromeDriver.switchTo().frame(frame);
-                chromeDriver.findElementById("isc_23").click();
+                chromeDriver.findElementByXPath("//*[@id=\"isc_2H\"]/img").click();
             }
             catch (Exception ignored) {
             }
@@ -233,7 +232,7 @@ public class LoginInfoPanel extends JPanel {
             try {
                 WebElement frame = firefoxDriver.findElementByCssSelector("[id^='SIS']");
                 firefoxDriver.switchTo().frame(frame);
-                firefoxDriver.findElementById("isc_23").click();
+                firefoxDriver.findElementByXPath("//*[@id=\"isc_2H\"]/img").click();
             }
             catch (Exception ignored) {
             }
@@ -283,7 +282,7 @@ public class LoginInfoPanel extends JPanel {
             try {
                 WebElement frame = edgeDriver.findElementByCssSelector("[id^='SIS']");
                 edgeDriver.switchTo().frame(frame);
-                edgeDriver.findElementById("isc_23").click();
+                edgeDriver.findElementByXPath("//*[@id=\"isc_2H\"]/img").click();
             }
             catch (Exception ignored) {
             }
@@ -335,7 +334,7 @@ public class LoginInfoPanel extends JPanel {
             try {
                 WebElement frame = operaDriver.findElementByCssSelector("[id^='SIS']");
                 operaDriver.switchTo().frame(frame);
-                operaDriver.findElementById("isc_23").click();
+                operaDriver.findElementByXPath("//*[@id=\"isc_2H\"]/img").click();
             }
             catch (Exception ignored) {
             }
@@ -382,7 +381,7 @@ public class LoginInfoPanel extends JPanel {
             try {
                 WebElement frame = safariDriver.findElementByCssSelector("[id^='SIS']");
                 safariDriver.switchTo().frame(frame);
-                safariDriver.findElementById("isc_23").click();
+                safariDriver.findElementByXPath("//*[@id=\"isc_2H\"]/img").click();
             }
             catch (Exception ignored) {
             }
