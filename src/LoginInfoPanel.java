@@ -1,6 +1,7 @@
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.opera.*;
 
@@ -14,6 +15,7 @@ import java.io.IOException;
 public class LoginInfoPanel extends JPanel {
     JButton initiateSession;
     JRadioButton edge;
+    JRadioButton safari;
     JRadioButton firefox;
     JRadioButton chrome;
     JRadioButton opera;
@@ -26,6 +28,7 @@ public class LoginInfoPanel extends JPanel {
     FirefoxDriver firefoxDriver;
     EdgeDriver edgeDriver;
     OperaDriver operaDriver;
+    SafariDriver safariDriver;
 
     String OsInfo;
 
@@ -50,6 +53,7 @@ public class LoginInfoPanel extends JPanel {
         ButtonGroup buttonGroup = new ButtonGroup();
 
         edge = new JRadioButton("Edge");
+        safari = new JRadioButton("Safari");
         firefox = new JRadioButton("Firefox");
         chrome = new JRadioButton("Chrome");
         opera = new JRadioButton("Opera");
@@ -58,13 +62,21 @@ public class LoginInfoPanel extends JPanel {
         buttonGroup.add(firefox);
         buttonGroup.add(chrome);
         buttonGroup.add(opera);
+        buttonGroup.add(safari);
 
         JPanel radioButtonPanel = new JPanel();
-        radioButtonPanel.add(edge);
-        radioButtonPanel.add(firefox);
-        radioButtonPanel.add(chrome);
-        radioButtonPanel.add(opera);
-        edge.setSelected(true);
+
+        if (OsInfo.equals("Windows")) {
+
+            radioButtonPanel.add(edge);
+            radioButtonPanel.add(firefox);
+            radioButtonPanel.add(chrome);
+            radioButtonPanel.add(opera);
+            edge.setSelected(true);
+        }
+        else if (OsInfo.equals("Mac")) {
+            radioButtonPanel.add(safari);
+        }
 
         this.add(username);
         this.add(usernameField);
@@ -296,6 +308,50 @@ public class LoginInfoPanel extends JPanel {
         } catch (InterruptedException | IOException e) {
             JOptionPane.showMessageDialog(null, "Please restart the session.");
             operaDriver.quit();
+            return false;
+        }
+        return true;
+    }
+    private boolean safari() {
+        try {
+            String path = System.getProperty("user.dir");
+
+            String username = loginInfoPanel.usernameField.getText();
+            String password = loginInfoPanel.passwordField.getText();
+            String url = "https://sis.ozyegin.edu.tr/OZU_GWT/login.jsp";
+
+            if (OsInfo.equals("Windows")) {
+               JOptionPane.showMessageDialog(null,"You should not be here");
+               System.exit(-1);
+            } else if (OsInfo.equals("Mac")){
+                Runtime.getRuntime().exec("safaridriver --enable");
+                System.setProperty("webdriver.safari.driver", "usr/bin/safaridriver");
+            }
+
+            safariDriver = new SafariDriver();
+
+            try {
+                safariDriver.get(url);
+            } catch (Exception e) {
+                safariDriver.findElementById("enableTls10Button").click();
+            }
+
+            safariDriver.findElementById("username").sendKeys(username);
+            safariDriver.findElementById("password").sendKeys(password);
+            Select select = new Select(safariDriver.findElementById("language"));
+            select.selectByValue("en");
+            safariDriver.findElementById("submit").click();
+
+            Thread.sleep(1500);
+
+            if (safariDriver.getCurrentUrl().equals("https://sis.ozyegin.edu.tr/OZU_GWT/login.jsp")) {
+                JOptionPane.showMessageDialog(null, "Invalid login info. Please start again.");
+                safariDriver.quit();
+                return false;
+            }
+        } catch (InterruptedException | IOException e) {
+            JOptionPane.showMessageDialog(null, "Please restart the session.");
+            safariDriver.quit();
             return false;
         }
         return true;
