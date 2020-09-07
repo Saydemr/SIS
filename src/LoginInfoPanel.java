@@ -136,7 +136,6 @@ public class LoginInfoPanel extends JPanel {
                 loginInfoPanel.jFrame.add(jTabbedPane, BorderLayout.NORTH);
                 loginInfoPanel.jFrame.repaint();
                 loginInfoPanel.jFrame.revalidate();
-
             }
         }
     }
