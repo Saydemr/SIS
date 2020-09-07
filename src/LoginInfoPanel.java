@@ -139,6 +139,7 @@ public class LoginInfoPanel extends JPanel {
             }
         }
     }
+
     private boolean chrome() {
 
         try {
