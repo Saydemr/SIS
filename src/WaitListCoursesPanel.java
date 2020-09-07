@@ -7,7 +7,7 @@ public class WaitListCoursesPanel extends JPanel {
     public WaitListCoursesPanel(WaitListPanel waitListPanel) {
         this.waitListPanel = waitListPanel;
 
-        this.setLayout(new GridLayout(12, 3, 10, 20));
+        this.setLayout(new GridLayout(14, 2, 10, 20));
         this.setBorder(BorderFactory.createTitledBorder("Course Info"));
 
         JLabel courseID = new JLabel("Course ID");
@@ -22,35 +22,21 @@ public class WaitListCoursesPanel extends JPanel {
         JTextField section1 = new JTextField();
         JCheckBox enrolled1 = new JCheckBox();
 
-        JTextField course2 = new JTextField();
-        JSpinner frequency2 = new JSpinner(new SpinnerNumberModel(30, 2.5, 60, 0.5));
-
-        JCheckBox enrolled2 = new JCheckBox();
-
-        course2.setVisible(false);
-        frequency2.setVisible(false);
-        enrolled2.setVisible(false);
-
         ((JSpinner.DefaultEditor) frequency1.getEditor()).getTextField().setEditable(false);
-        ((JSpinner.DefaultEditor) frequency2.getEditor()).getTextField().setEditable(false);
 
         this.add(courseID);
-        this.add(period);
-        this.add(courseSection);
-
-
         this.add(course1);
-        this.add(frequency1);
+
+        this.add(courseSection);
         this.add(section1);
+
+        this.add(period);
+        this.add(frequency1);
 
         this.add(alreadyEnrolled);
         this.add(enrolled1);
 
-        this.add(course2);
-        this.add(frequency2);
-        this.add(enrolled2);
-
-        for (int i = 0; i < 25; i++) {
+        for (int i = 0; i < 20; i++) {
             JLabel empty = new JLabel();
             empty.setVisible(false);
             this.add(empty);
