@@ -2,3 +2,7 @@
 /out/production/SIS/
 /out/artifacts/SIS_jar/SIS.jar
 /src/META-INF/MANIFEST.MF
+/out/artifacts/SIS_jar/Wchromedriver.exe
+/out/artifacts/SIS_jar/Wgeckodriver.exe
+/out/artifacts/SIS_jar/Wmsedgedriver.exe
+/out/artifacts/SIS_jar/Woperadriver.exe
