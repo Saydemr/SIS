@@ -36,7 +36,7 @@ public class LoginInfoPanel extends JPanel {
     public LoginInfoPanel(JFrame jFrame) {
         this.jFrame = jFrame;
         OsInfo = System.getProperty("os.name").split(" ")[0];
-        System.out.println(OsInfo);
+
         this.setLayout(new GridLayout(3, 2, 7, 7));
         this.setBorder(BorderFactory.createTitledBorder("SIS Login Info"));
         JLabel username = new JLabel("Username");
