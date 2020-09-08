@@ -1,3 +1,6 @@
+# Automated Course Registration
+Ozyegin University SIS fast course registration and waitlisting project. Selenium & Java.
+
 Pre-requisites :
 
 - Java 8. If you do not have java installed on your device please download it from here. (https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html)
