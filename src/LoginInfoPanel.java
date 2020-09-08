@@ -95,6 +95,7 @@ public class LoginInfoPanel extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            System.out.println(System.getProperty("user.dir"));
             boolean loginCheck = false;
 
             if (loginInfoPanel.usernameField.getText().isEmpty() || loginInfoPanel.passwordField.getText().isEmpty()) {
@@ -177,10 +178,9 @@ public class LoginInfoPanel extends JPanel {
                 chromeDriver.quit();
                 return false;
             }
-
+            WebElement frame = chromeDriver.findElementByCssSelector("[id^='SIS']");
+            chromeDriver.switchTo().frame(frame);
             try {
-                WebElement frame = chromeDriver.findElementByCssSelector("[id^='SIS']");
-                chromeDriver.switchTo().frame(frame);
                 chromeDriver.findElementByXPath("//*[@id=\"isc_2H\"]/img").click();
             }
             catch (Exception ignored) {
@@ -229,9 +229,10 @@ public class LoginInfoPanel extends JPanel {
                 return false;
             }
 
+            WebElement frame = firefoxDriver.findElementByCssSelector("[id^='SIS']");
+            firefoxDriver.switchTo().frame(frame);
+
             try {
-                WebElement frame = firefoxDriver.findElementByCssSelector("[id^='SIS']");
-                firefoxDriver.switchTo().frame(frame);
                 firefoxDriver.findElementByXPath("//*[@id=\"isc_2H\"]/img").click();
             }
             catch (Exception ignored) {
@@ -279,9 +280,9 @@ public class LoginInfoPanel extends JPanel {
                 return false;
             }
 
+            WebElement frame = edgeDriver.findElementByCssSelector("[id^='SIS']");
+            edgeDriver.switchTo().frame(frame);
             try {
-                WebElement frame = edgeDriver.findElementByCssSelector("[id^='SIS']");
-                edgeDriver.switchTo().frame(frame);
                 edgeDriver.findElementByXPath("//*[@id=\"isc_2H\"]/img").click();
             }
             catch (Exception ignored) {
@@ -331,9 +332,11 @@ public class LoginInfoPanel extends JPanel {
                 return false;
             }
 
+            WebElement frame = operaDriver.findElementByCssSelector("[id^='SIS']");
+            operaDriver.switchTo().frame(frame);
+
             try {
-                WebElement frame = operaDriver.findElementByCssSelector("[id^='SIS']");
-                operaDriver.switchTo().frame(frame);
+
                 operaDriver.findElementByXPath("//*[@id=\"isc_2H\"]/img").click();
             }
             catch (Exception ignored) {
@@ -378,9 +381,11 @@ public class LoginInfoPanel extends JPanel {
                 safariDriver.quit();
                 return false;
             }
+
+            WebElement frame = safariDriver.findElementByCssSelector("[id^='SIS']");
+            safariDriver.switchTo().frame(frame);
+
             try {
-                WebElement frame = safariDriver.findElementByCssSelector("[id^='SIS']");
-                safariDriver.switchTo().frame(frame);
                 safariDriver.findElementByXPath("//*[@id=\"isc_2H\"]/img").click();
             }
             catch (Exception ignored) {

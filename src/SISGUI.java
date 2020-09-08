@@ -6,6 +6,7 @@ public class SISGUI {
     public static void main(String[] args) {
 
         String OsInfo = System.getProperty("os.name").split(" ")[0];
+        System.out.println(System.getProperty("user.dir"));
 
         if (OsInfo.equals("Linux")) {
             JOptionPane.showMessageDialog(null, "Linux is not supported");
@@ -24,7 +25,7 @@ public class SISGUI {
             e.printStackTrace();
         }
 
-        // Thanks to https://github.com/EsadSimitcioglu
+        // Special thanks to https://github.com/EsadSimitcioglu
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
