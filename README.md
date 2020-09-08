@@ -17,5 +17,4 @@ Mac :
 - Write your credentials to sign-in to OzU SIS.
 - Click "Open Session" and wait.
 
-
 # by Sadikhov and Saydemir
