@@ -10,7 +10,7 @@ Windows :
 - Select the browser installed on your system. (Opera & Chrome recommended)
 - Click "Open Session" and wait.
 
-Mac:
+Mac :
 
 - Download SIS.zip file and extract the content. Extracted files must be in the same directory.
 - Start the program by double clicking on SIS.jar.
