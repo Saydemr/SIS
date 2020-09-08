@@ -1,10 +1,5 @@
-# Selenium project for fast course registration and waitlisting for OzU students.
-# Written in Java
-# by Sadikhov and Saydemir
-
-
 Pre-requisites: 
-- Java 8. If you do not have java installed please download it from here. (https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html)
+- Java 8. If you do not have java installed on your device please download it from here. (https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html)
   
 
 Windows :
@@ -22,3 +17,7 @@ Mac:
 - Start the program by double clicking on SIS.jar.
 - Write your credentials for sign-in to OzU SIS.
 - Click "Open Session" and wait.
+
+# Selenium project for fast course registration and waitlisting for OzU students.
+# Written in Java
+# by Sadikhov and Saydemir
