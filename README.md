@@ -1,13 +1,10 @@
-#===============================================
-# SIS
-# Selenium project for fast course registration and waitlisting for OzyeginUniversity SIS system.
+# Selenium project for fast course registration and waitlisting for OzU students.
 # Written in Java
 # by Sadikhov and Saydemir
-#===============================================
 
 
 Pre-requisites: 
-  Java 8. If you do not have java installed please download it from here. (https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html)
+- Java 8. If you do not have java installed please download it from here. (https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html)
   
 
 Windows :
