@@ -200,7 +200,7 @@ public class LoginInfoPanel extends JPanel {
             String url = "https://sis.ozyegin.edu.tr/OZU_GWT/login.jsp";
 
             if (OsInfo.equals("Windows")) {
-                System.setProperty("webdriver.gecko.driver", path + "\\geckodriver.exe");
+                System.setProperty("webdriver.gecko.driver", path + "\\Wgeckodriver.exe");
             }
 
             firefoxDriver = new FirefoxDriver();
