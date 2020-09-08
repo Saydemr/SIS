@@ -26,8 +26,8 @@ public class LoginInfoPanel extends JPanel {
     LoginInfoPanel loginInfoPanel = this;
 
     ChromeDriver chromeDriver;
-    FirefoxDriver firefoxDriver;
-    EdgeDriver edgeDriver;
+    static FirefoxDriver firefoxDriver;
+    static EdgeDriver edgeDriver;
     OperaDriver operaDriver;
     SafariDriver safariDriver;
 
@@ -67,7 +67,6 @@ public class LoginInfoPanel extends JPanel {
         JPanel radioButtonPanel = new JPanel();
 
         if (OsInfo.equals("Windows")) {
-
             radioButtonPanel.add(edge);
             radioButtonPanel.add(firefox);
             radioButtonPanel.add(chrome);
@@ -96,7 +95,6 @@ public class LoginInfoPanel extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println(System.getProperty("user.dir"));
             boolean loginCheck = false;
 
             if (loginInfoPanel.usernameField.getText().isEmpty() || loginInfoPanel.passwordField.getText().isEmpty()) {
@@ -112,8 +110,7 @@ public class LoginInfoPanel extends JPanel {
                     loginCheck = loginInfoPanel.opera();
                 } else if (loginInfoPanel.safari.isSelected()) {
                     loginCheck = loginInfoPanel.safari();
-                }
-                else {
+                } else {
                     JOptionPane.showMessageDialog(null, "Please select the browser you are using in this computer");
                 }
             }
@@ -203,9 +200,7 @@ public class LoginInfoPanel extends JPanel {
             String url = "https://sis.ozyegin.edu.tr/OZU_GWT/login.jsp";
 
             if (OsInfo.equals("Windows")) {
-                System.setProperty("webdriver.gecko.driver", path + "\\Wgeckodriver.exe");
-            } else if (OsInfo.equals("Mac")){
-
+                System.setProperty("webdriver.gecko.driver", path + "\\geckodriver.exe");
             }
 
             firefoxDriver = new FirefoxDriver();
