@@ -12,9 +12,7 @@ import java.io.IOException;
 
 public class LoginInfoPanel extends JPanel {
     JButton initiateSession;
-    JRadioButton edge;
     JRadioButton safari;
-    JRadioButton firefox;
     JRadioButton chrome;
     JRadioButton opera;
     JTextField usernameField;
@@ -48,9 +46,9 @@ public class LoginInfoPanel extends JPanel {
 
         ButtonGroup buttonGroup = new ButtonGroup();
 
-        safari = new JRadioButton("Safari");
         chrome = new JRadioButton("Chrome");
         opera = new JRadioButton("Opera");
+        safari = new JRadioButton("Safari");
 
         buttonGroup.add(chrome);
         buttonGroup.add(opera);
@@ -61,7 +59,7 @@ public class LoginInfoPanel extends JPanel {
         if (OsInfo.equals("Windows")) {
             radioButtonPanel.add(chrome);
             radioButtonPanel.add(opera);
-            edge.setSelected(true);
+            chrome.setSelected(true);
         }
         else if (OsInfo.equals("Mac")) {
             radioButtonPanel.add(safari);
