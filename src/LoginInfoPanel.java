@@ -1,7 +1,5 @@
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.Select;
@@ -25,8 +23,6 @@ public class LoginInfoPanel extends JPanel {
     LoginInfoPanel loginInfoPanel = this;
 
     ChromeDriver chromeDriver;
-    WebDriver firefoxDriver;
-    EdgeDriver edgeDriver;
     OperaDriver operaDriver;
     SafariDriver safariDriver;
 
