@@ -1,11 +1,10 @@
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.opera.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,8 +25,8 @@ public class LoginInfoPanel extends JPanel {
     LoginInfoPanel loginInfoPanel = this;
 
     ChromeDriver chromeDriver;
-    static FirefoxDriver firefoxDriver;
-    static EdgeDriver edgeDriver;
+    FirefoxDriver firefoxDriver;
+    EdgeDriver edgeDriver;
     OperaDriver operaDriver;
     SafariDriver safariDriver;
 
@@ -299,9 +298,6 @@ public class LoginInfoPanel extends JPanel {
 
             if (OsInfo.equals("Windows")) {
                 System.setProperty("webdriver.opera.driver", path + "\\Woperadriver.exe");
-            } else if (OsInfo.equals("Mac")){
-                Runtime.getRuntime().exec("chmod +x " + path + "/operadriver");
-                System.setProperty("webdriver.opera.driver", path + "/operadriver");
             }
 
             operaDriver = new OperaDriver();
@@ -335,7 +331,7 @@ public class LoginInfoPanel extends JPanel {
             }
             catch (Exception ignored) {
             }
-        } catch (InterruptedException | IOException e) {
+        } catch (InterruptedException e) {
             JOptionPane.showMessageDialog(null, "Please restart the session.");
             operaDriver.quit();
             return false;
