@@ -111,8 +111,6 @@ public class LoginInfoPanel extends JPanel {
                 jTabbedPane.add("Course Registration", courseRegistrationPanel);
                 jTabbedPane.add("WaitList", waitListPanel);
 
-                loginInfoPanel.edge.setEnabled(false);
-                loginInfoPanel.firefox.setEnabled(false);
                 loginInfoPanel.chrome.setEnabled(false);
                 loginInfoPanel.setVisible(false);
 
