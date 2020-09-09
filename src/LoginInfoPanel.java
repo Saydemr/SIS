@@ -1,7 +1,7 @@
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.Select;
@@ -25,7 +25,7 @@ public class LoginInfoPanel extends JPanel {
     LoginInfoPanel loginInfoPanel = this;
 
     ChromeDriver chromeDriver;
-    FirefoxDriver firefoxDriver;
+    WebDriver firefoxDriver;
     EdgeDriver edgeDriver;
     OperaDriver operaDriver;
     SafariDriver safariDriver;
@@ -46,19 +46,16 @@ public class LoginInfoPanel extends JPanel {
 
         this.passwordField.setEchoChar('*');
 
-        initiateSession = new JButton("OPEN SESSION");
+        initiateSession = new JButton("Open Session");
+
         this.initiateSession.addActionListener(new openSessionListener(loginInfoPanel));
 
         ButtonGroup buttonGroup = new ButtonGroup();
 
-        edge = new JRadioButton("Edge");
         safari = new JRadioButton("Safari");
-        firefox = new JRadioButton("Firefox");
         chrome = new JRadioButton("Chrome");
         opera = new JRadioButton("Opera");
 
-        buttonGroup.add(edge);
-        buttonGroup.add(firefox);
         buttonGroup.add(chrome);
         buttonGroup.add(opera);
         buttonGroup.add(safari);
@@ -66,8 +63,6 @@ public class LoginInfoPanel extends JPanel {
         JPanel radioButtonPanel = new JPanel();
 
         if (OsInfo.equals("Windows")) {
-            radioButtonPanel.add(edge);
-            radioButtonPanel.add(firefox);
             radioButtonPanel.add(chrome);
             radioButtonPanel.add(opera);
             edge.setSelected(true);
@@ -99,11 +94,7 @@ public class LoginInfoPanel extends JPanel {
             if (loginInfoPanel.usernameField.getText().isEmpty() || loginInfoPanel.passwordField.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Please enter a username and password");
             } else {
-                if (loginInfoPanel.edge.isSelected()) {
-                    loginCheck = loginInfoPanel.edge();
-                } else if (loginInfoPanel.firefox.isSelected()) {
-                    loginCheck = loginInfoPanel.firefox();
-                } else if (loginInfoPanel.chrome.isSelected()) {
+                if (loginInfoPanel.chrome.isSelected()) {
                     loginCheck = loginInfoPanel.chrome();
                 } else if (loginInfoPanel.opera.isSelected()) {
                     loginCheck = loginInfoPanel.opera();
@@ -186,104 +177,6 @@ public class LoginInfoPanel extends JPanel {
         } catch (InterruptedException | IOException e) {
             JOptionPane.showMessageDialog(null, "Please restart the session.");
             chromeDriver.quit();
-            return false;
-        }
-        return true;
-    }
-    private boolean firefox() {
-        try {
-            String path = System.getProperty("user.dir");
-
-            String username = loginInfoPanel.usernameField.getText();
-            String password = loginInfoPanel.passwordField.getText();
-            String url = "https://sis.ozyegin.edu.tr/OZU_GWT/login.jsp";
-
-            if (OsInfo.equals("Windows")) {
-                System.setProperty("webdriver.gecko.driver", path + "\\Wgeckodriver.exe");
-            }
-
-            firefoxDriver = new FirefoxDriver();
-
-            try {
-                firefoxDriver.get(url);
-            } catch (Exception e) {
-                firefoxDriver.findElementById("enableTls10Button").click();
-            }
-
-            firefoxDriver.findElementById("username").sendKeys(username);
-            firefoxDriver.findElementById("password").sendKeys(password);
-            Select select = new Select(firefoxDriver.findElementById("language"));
-            select.selectByValue("en");
-            firefoxDriver.findElementById("submit").click();
-
-            Thread.sleep(1500);
-
-            if (firefoxDriver.getCurrentUrl().equals("https://sis.ozyegin.edu.tr/OZU_GWT/login.jsp")) {
-                JOptionPane.showMessageDialog(null, "Invalid login info. Please start again.");
-                firefoxDriver.quit();
-                return false;
-            }
-
-            WebElement frame = firefoxDriver.findElementByCssSelector("[id^='SIS']");
-            firefoxDriver.switchTo().frame(frame);
-
-            try {
-                firefoxDriver.findElementByXPath("//*[@id=\"isc_2H\"]/img").click();
-            }
-            catch (Exception ignored) {
-            }
-        } catch (InterruptedException e) {
-            JOptionPane.showMessageDialog(null, "Please restart the session.");
-            firefoxDriver.quit();
-            return false;
-        }
-        return true;
-    }
-    private boolean edge() {
-
-        try {
-            String path = System.getProperty("user.dir");
-
-            String username = loginInfoPanel.usernameField.getText();
-            String password = loginInfoPanel.passwordField.getText();
-            String url = "https://sis.ozyegin.edu.tr/OZU_GWT/login.jsp";
-
-            if (OsInfo.equals("Windows")) {
-                System.setProperty("webdriver.edge.driver", path + "\\Wmsedgedriver.exe");
-            }
-
-            edgeDriver = new EdgeDriver();
-
-            try {
-                edgeDriver.get(url);
-            } catch (Exception e) {
-                edgeDriver.findElementById("enableTls10Button").click();
-            }
-
-            edgeDriver.findElementById("username").sendKeys(username);
-            edgeDriver.findElementById("password").sendKeys(password);
-            Select select = new Select(edgeDriver.findElementById("language"));
-            select.selectByValue("en");
-            edgeDriver.findElementById("submit").click();
-
-            Thread.sleep(1500);
-            if (edgeDriver.getCurrentUrl().equals("https://sis.ozyegin.edu.tr/OZU_GWT/login.jsp")) {
-                JOptionPane.showMessageDialog(null, "Invalid login info. Please start again.");
-                edgeDriver.quit();
-                return false;
-            }
-
-            WebElement frame = edgeDriver.findElementByCssSelector("[id^='SIS']");
-            edgeDriver.switchTo().frame(frame);
-            try {
-                edgeDriver.findElementByXPath("//*[@id=\"isc_2H\"]/img").click();
-            }
-            catch (Exception ignored) {
-            }
-
-        } catch (InterruptedException e) {
-            JOptionPane.showMessageDialog(null, "Please restart the session.");
-            edgeDriver.quit();
             return false;
         }
         return true;
