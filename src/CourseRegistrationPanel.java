@@ -3,8 +3,8 @@ import java.awt.*;
 
 public class CourseRegistrationPanel extends JPanel {
 
-    private AddCoursePanel addCoursePanel;
-    private CoursesPanel coursesPanel;
+    private final AddCoursePanel addCoursePanel;
+    private final CoursesPanel coursesPanel;
 
     public CourseRegistrationPanel() {
         this.setLayout(new BorderLayout());

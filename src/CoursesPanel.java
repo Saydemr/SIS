@@ -5,10 +5,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CoursesPanel extends JPanel {
-    private JTable table;
-    private DefaultTableModel tableModel;
-    private JButton continueButton;
-    private CourseRegistrationPanel courseRegistrationPanel;
+    private final JTable table;
+    private final DefaultTableModel tableModel;
+    private final JButton continueButton;
+    private final CourseRegistrationPanel courseRegistrationPanel;
 
     public CoursesPanel(CourseRegistrationPanel courseRegistrationPanel) {
         this.setLayout(new BorderLayout());
@@ -50,7 +50,7 @@ public class CoursesPanel extends JPanel {
         this.repaint();
     }
 
-    public class registrationListener implements ActionListener {
+    public static class registrationListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
             // TODO Implement selenium browser
