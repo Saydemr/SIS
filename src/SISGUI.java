@@ -1,5 +1,5 @@
-import java.awt.*;
 import javax.swing.*;
+import java.awt.*;
 
 public class SISGUI {
 
@@ -25,23 +25,20 @@ public class SISGUI {
         }
 
         // Special thanks to https://github.com/EsadSimitcioglu
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                JFrame frame = new JFrame("OneClick");
+        SwingUtilities.invokeLater(() -> {
+            JFrame frame = new JFrame("OneClick");
 
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setMinimumSize(new Dimension(500,750));
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setMinimumSize(new Dimension(500,750));
 
-                frame.setLayout(new BorderLayout());
+            frame.setLayout(new BorderLayout());
 
-                LoginInfoPanel loginInfoPanel = new LoginInfoPanel(frame);
-                frame.add(loginInfoPanel, BorderLayout.NORTH);
+            LoginInfoPanel loginInfoPanel = new LoginInfoPanel(frame);
+            frame.add(loginInfoPanel, BorderLayout.NORTH);
 
-                frame.pack();
-                frame.setLocationRelativeTo(null);
-                frame.setVisible(true);
-            }
+            frame.pack();
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
         });
     }
 }
