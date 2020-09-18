@@ -1,4 +1,4 @@
-# Automated Course Registration
+# OzU Automated Course Registration
 Ozyegin University SIS fast course registration and waitlisting project. Selenium & Java.
 
 Pre-requisites :
