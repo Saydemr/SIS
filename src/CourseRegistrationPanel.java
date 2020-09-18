@@ -5,8 +5,11 @@ public class CourseRegistrationPanel extends JPanel {
 
     private final AddCoursePanel addCoursePanel;
     private final CoursesPanel coursesPanel;
+    LoginInfoPanel loginInfoPanel;
 
-    public CourseRegistrationPanel() {
+    public CourseRegistrationPanel(LoginInfoPanel loginInfoPanel) {
+        this.loginInfoPanel = loginInfoPanel;
+
         this.setLayout(new BorderLayout());
 
         addCoursePanel = new AddCoursePanel(this);

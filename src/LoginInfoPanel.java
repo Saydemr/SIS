@@ -24,11 +24,12 @@ public class LoginInfoPanel extends JPanel {
     OperaDriver operaDriver;
     SafariDriver safariDriver;
 
-    String OsInfo;
+    public static String OsInfo;
 
     public LoginInfoPanel(JFrame jFrame) {
         this.jFrame = jFrame;
         OsInfo = System.getProperty("os.name").split(" ")[0];
+        Globals.OsInfo = OsInfo;
 
         this.setLayout(new GridLayout(3, 2, 7, 7));
         this.setBorder(BorderFactory.createTitledBorder("SIS Login Info"));
@@ -105,8 +106,8 @@ public class LoginInfoPanel extends JPanel {
 
                 JTabbedPane jTabbedPane = new JTabbedPane();
 
-                CourseRegistrationPanel courseRegistrationPanel = new CourseRegistrationPanel();
-                WaitListPanel waitListPanel = new WaitListPanel();
+                CourseRegistrationPanel courseRegistrationPanel = new CourseRegistrationPanel(loginInfoPanel);
+                WaitListPanel waitListPanel = new WaitListPanel(loginInfoPanel);
 
                 jTabbedPane.add("Course Registration", courseRegistrationPanel);
                 jTabbedPane.add("WaitList", waitListPanel);
@@ -124,6 +125,7 @@ public class LoginInfoPanel extends JPanel {
     private boolean chrome() {
 
         try {
+            Globals.driver = "chrome";
             String path = System.getProperty("user.dir");
 
             String username = loginInfoPanel.usernameField.getText();
@@ -138,6 +140,7 @@ public class LoginInfoPanel extends JPanel {
             }
 
             chromeDriver = new ChromeDriver();
+            chromeDriver.manage().window().maximize();
 
             try {
                 chromeDriver.get(url);
@@ -175,6 +178,7 @@ public class LoginInfoPanel extends JPanel {
     }
     private boolean opera() {
         try {
+            Globals.driver = "opera";
             String path = System.getProperty("user.dir");
 
             String username = loginInfoPanel.usernameField.getText();
@@ -186,6 +190,7 @@ public class LoginInfoPanel extends JPanel {
             }
 
             operaDriver = new OperaDriver();
+            operaDriver.manage().window().maximize();
 
             try {
                 operaDriver.get(url);
@@ -225,6 +230,7 @@ public class LoginInfoPanel extends JPanel {
     }
     private boolean safari() {
         try {
+            Globals.driver = "safari";
 
             String username = loginInfoPanel.usernameField.getText();
             String password = loginInfoPanel.passwordField.getText();
@@ -236,6 +242,7 @@ public class LoginInfoPanel extends JPanel {
             }
 
             safariDriver = new SafariDriver();
+            safariDriver.manage().window().maximize();
 
             try {
                 safariDriver.get(url);
