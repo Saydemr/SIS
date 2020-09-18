@@ -49,9 +49,32 @@ public class WaitListPanel extends JPanel {
                     loginInfoPanel.operaDriver.findElementByName("isc_5Xicon").click();
 
                 case "chrome":
+                    WebElement sgBoxch = loginInfoPanel.chromeDriver.findElementByClassName("gwt-SuggestBox");
+                    sgBoxch.sendKeys("Sections");
+                    sgBoxch.sendKeys(Keys.TAB);
 
+                    try {
+                        Thread.sleep(1500);
+                    } catch (InterruptedException ignored) {
+                    }
+
+                    loginInfoPanel.chromeDriver.findElementByName("SUBJECT").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^A-Za-z]+", ""));
+                    loginInfoPanel.chromeDriver.findElementByName("COURSENO").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^0-9]", ""));
+                    loginInfoPanel.chromeDriver.findElementByName("isc_5Xicon").click();
 
                 case "safari":
+                    WebElement sgBoxsf = loginInfoPanel.safariDriver.findElementByClassName("gwt-SuggestBox");
+                    sgBoxsf.sendKeys("Sections");
+                    sgBoxsf.sendKeys(Keys.TAB);
+
+                    try {
+                        Thread.sleep(1500);
+                    } catch (InterruptedException ignored) {
+                    }
+
+                    loginInfoPanel.safariDriver.findElementByName("SUBJECT").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^A-Za-z]+", ""));
+                    loginInfoPanel.safariDriver.findElementByName("COURSENO").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^0-9]", ""));
+                    loginInfoPanel.safariDriver.findElementByName("isc_5Xicon").click();
 
             }
         }
