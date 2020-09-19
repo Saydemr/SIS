@@ -8,6 +8,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class WaitListPanel extends JPanel {
     LoginInfoPanel loginInfoPanel;
@@ -36,7 +41,7 @@ public class WaitListPanel extends JPanel {
         }
 
         public void actionPerformed(ActionEvent e) {
-
+            boolean exists = false;
             switch (Globals.driver) {
                 case "opera":
                     WebElement sgBox = loginInfoPanel.operaDriver.findElementByClassName("gwt-SuggestBox");
@@ -82,6 +87,21 @@ public class WaitListPanel extends JPanel {
 
                     break;
             }
+
+            if (exists) {
+
+
+
+            }
         }
+    }
+
+    public void scheduler(LocalTime localTime) {
+
+        long delay = ChronoUnit.MILLIS.between(LocalTime.now(),localTime);
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+        scheduler.schedule(() -> {
+
+        },delay, TimeUnit.MILLISECONDS);
     }
 }

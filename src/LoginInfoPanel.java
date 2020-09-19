@@ -89,6 +89,8 @@ public class LoginInfoPanel extends JPanel {
             if (loginInfoPanel.usernameField.getText().isEmpty() || loginInfoPanel.passwordField.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Please enter a username and password");
             } else {
+                Globals.setUsername(this.loginInfoPanel.usernameField.getText());
+                Globals.setPassword(this.loginInfoPanel.passwordField.getText());
                 if (loginInfoPanel.chrome.isSelected()) {
                     loginCheck = loginInfoPanel.chrome();
                 } else if (loginInfoPanel.opera.isSelected()) {
