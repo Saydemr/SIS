@@ -1,5 +1,8 @@
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import javax.swing.*;
 import java.awt.*;
@@ -40,14 +43,13 @@ public class WaitListPanel extends JPanel {
                     sgBox.sendKeys("Sections");
                     sgBox.sendKeys(Keys.TAB);
 
-                    try {
-                        Thread.sleep(1500);
-                    } catch (InterruptedException ignored) {
-                    }
+                    WebDriverWait wait = new WebDriverWait(loginInfoPanel.operaDriver, 1,500);
+                    wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("SUBJECT")));
 
                     loginInfoPanel.operaDriver.findElementByName("SUBJECT").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^A-Za-z]+", ""));
                     loginInfoPanel.operaDriver.findElementByName("COURSENO").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^0-9]", ""));
-                    loginInfoPanel.operaDriver.findElementByName("isc_5A").click();
+                    loginInfoPanel.operaDriver.findElementById("isc_5X").click();
+
                     break;
 
                 case "chrome":
@@ -56,14 +58,13 @@ public class WaitListPanel extends JPanel {
                     sgBoxch.sendKeys("Sections");
                     sgBoxch.sendKeys(Keys.TAB);
 
-                    try {
-                        Thread.sleep(1500);
-                    } catch (InterruptedException ignored) {
-                    }
+                    WebDriverWait waitch = new WebDriverWait(loginInfoPanel.chromeDriver, 1,500);
+                    waitch.until(ExpectedConditions.visibilityOfElementLocated(By.name("SUBJECT")));
 
                     loginInfoPanel.chromeDriver.findElementByName("SUBJECT").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^A-Za-z]+", ""));
                     loginInfoPanel.chromeDriver.findElementByName("COURSENO").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^0-9]", ""));
-                  //  loginInfoPanel.chromeDriver.findElementByName("isc_5Bicon").click();
+                    loginInfoPanel.chromeDriver.findElementById("isc_5X").click();
+
                     break;
 
                 case "safari":
@@ -72,14 +73,13 @@ public class WaitListPanel extends JPanel {
                     sgBoxsf.sendKeys("Sections");
                     sgBoxsf.sendKeys(Keys.TAB);
 
-                    try {
-                        Thread.sleep(1500);
-                    } catch (InterruptedException ignored) {
-                    }
+                    WebDriverWait waitsf = new WebDriverWait(loginInfoPanel.safariDriver, 1,500);
+                    waitsf.until(ExpectedConditions.visibilityOfElementLocated(By.name("SUBJECT")));
 
                     loginInfoPanel.safariDriver.findElementByName("SUBJECT").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^A-Za-z]+", ""));
                     loginInfoPanel.safariDriver.findElementByName("COURSENO").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^0-9]", ""));
-              //      loginInfoPanel.safariDriver.findElementByName("isc_5Bicon").click();
+                    loginInfoPanel.safariDriver.findElementById("isc_5X").click();
+
                     break;
             }
         }
