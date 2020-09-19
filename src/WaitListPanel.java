@@ -33,6 +33,7 @@ public class WaitListPanel extends JPanel {
         }
 
         public void actionPerformed(ActionEvent e) {
+            System.out.println(Globals.driver);
             switch (Globals.driver) {
                 case "opera":
                     WebElement sgBox = loginInfoPanel.operaDriver.findElementByClassName("gwt-SuggestBox");
@@ -46,7 +47,8 @@ public class WaitListPanel extends JPanel {
 
                     loginInfoPanel.operaDriver.findElementByName("SUBJECT").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^A-Za-z]+", ""));
                     loginInfoPanel.operaDriver.findElementByName("COURSENO").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^0-9]", ""));
-                    loginInfoPanel.operaDriver.findElementByName("isc_5Xicon").click();
+                    loginInfoPanel.operaDriver.findElementByName("isc_5A").click();
+                    break;
 
                 case "chrome":
 
@@ -61,7 +63,8 @@ public class WaitListPanel extends JPanel {
 
                     loginInfoPanel.chromeDriver.findElementByName("SUBJECT").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^A-Za-z]+", ""));
                     loginInfoPanel.chromeDriver.findElementByName("COURSENO").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^0-9]", ""));
-                    loginInfoPanel.chromeDriver.findElementByName("isc_5Bicon").click();
+                  //  loginInfoPanel.chromeDriver.findElementByName("isc_5Bicon").click();
+                    break;
 
                 case "safari":
 
@@ -76,7 +79,8 @@ public class WaitListPanel extends JPanel {
 
                     loginInfoPanel.safariDriver.findElementByName("SUBJECT").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^A-Za-z]+", ""));
                     loginInfoPanel.safariDriver.findElementByName("COURSENO").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^0-9]", ""));
-                    loginInfoPanel.safariDriver.findElementByName("isc_5Bicon").click();
+              //      loginInfoPanel.safariDriver.findElementByName("isc_5Bicon").click();
+                    break;
             }
         }
     }
