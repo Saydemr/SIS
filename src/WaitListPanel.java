@@ -1,4 +1,5 @@
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 
 import javax.swing.*;
@@ -35,11 +36,8 @@ public class WaitListPanel extends JPanel {
         public void actionPerformed(ActionEvent e) {
             switch (Globals.driver) {
                 case "opera":
-                    if (loginInfoPanel.operaDriver.toString().contains("null")) {
-                        JOptionPane.showMessageDialog(null,"Start again. You should not close the browser.");
-                        System.exit(-1);
-                    }
-                    else {
+
+                    try {
                         WebElement sgBox = loginInfoPanel.operaDriver.findElementByClassName("gwt-SuggestBox");
                         sgBox.sendKeys("Sections");
                         sgBox.sendKeys(Keys.TAB);
@@ -52,6 +50,9 @@ public class WaitListPanel extends JPanel {
                         loginInfoPanel.operaDriver.findElementByName("SUBJECT").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^A-Za-z]+", ""));
                         loginInfoPanel.operaDriver.findElementByName("COURSENO").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^0-9]", ""));
                         loginInfoPanel.operaDriver.findElementByName("isc_5Xicon").click();
+                    } catch (WebDriverException e1) {
+                        JOptionPane.showMessageDialog(null,"Start again. You should not close the browser.");
+                        System.exit(-1);
                     }
                 case "chrome":
                     if (loginInfoPanel.chromeDriver.toString().contains("null")) {
@@ -74,7 +75,7 @@ public class WaitListPanel extends JPanel {
 
 
                 case "safari":
-                    if (loginInfoPanel.operaDriver.toString().contains("null")) {
+                    if (loginInfoPanel.safariDriver.toString().contains("null")) {
                         JOptionPane.showMessageDialog(null,"Start again. You should not close the browser.");
                         System.exit(-1);
                     } else {
