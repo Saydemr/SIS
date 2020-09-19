@@ -35,47 +35,62 @@ public class WaitListPanel extends JPanel {
         public void actionPerformed(ActionEvent e) {
             switch (Globals.driver) {
                 case "opera":
-                    WebElement sgBox = loginInfoPanel.operaDriver.findElementByClassName("gwt-SuggestBox");
-                    sgBox.sendKeys("Sections");
-                    sgBox.sendKeys(Keys.TAB);
-
-                    try {
-                        Thread.sleep(1500);
-                    } catch (InterruptedException ignored) {
+                    if (loginInfoPanel.operaDriver.toString().contains("null")) {
+                        JOptionPane.showMessageDialog(null,"Start again. You should not close the browser.");
+                        System.exit(-1);
                     }
+                    else {
+                        WebElement sgBox = loginInfoPanel.operaDriver.findElementByClassName("gwt-SuggestBox");
+                        sgBox.sendKeys("Sections");
+                        sgBox.sendKeys(Keys.TAB);
 
-                    loginInfoPanel.operaDriver.findElementByName("SUBJECT").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^A-Za-z]+", ""));
-                    loginInfoPanel.operaDriver.findElementByName("COURSENO").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^0-9]", ""));
-                    loginInfoPanel.operaDriver.findElementByName("isc_5Xicon").click();
+                        try {
+                            Thread.sleep(1500);
+                        } catch (InterruptedException ignored) {
+                        }
 
+                        loginInfoPanel.operaDriver.findElementByName("SUBJECT").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^A-Za-z]+", ""));
+                        loginInfoPanel.operaDriver.findElementByName("COURSENO").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^0-9]", ""));
+                        loginInfoPanel.operaDriver.findElementByName("isc_5Xicon").click();
+                    }
                 case "chrome":
-                    WebElement sgBoxch = loginInfoPanel.chromeDriver.findElementByClassName("gwt-SuggestBox");
-                    sgBoxch.sendKeys("Sections");
-                    sgBoxch.sendKeys(Keys.TAB);
+                    if (loginInfoPanel.chromeDriver.toString().contains("null")) {
+                        JOptionPane.showMessageDialog(null,"Start again. You should not close the browser.");
+                        System.exit(-1);
+                    } else {
+                        WebElement sgBoxch = loginInfoPanel.chromeDriver.findElementByClassName("gwt-SuggestBox");
+                        sgBoxch.sendKeys("Sections");
+                        sgBoxch.sendKeys(Keys.TAB);
 
-                    try {
-                        Thread.sleep(1500);
-                    } catch (InterruptedException ignored) {
+                        try {
+                            Thread.sleep(1500);
+                        } catch (InterruptedException ignored) {
+                        }
+
+                        loginInfoPanel.chromeDriver.findElementByName("SUBJECT").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^A-Za-z]+", ""));
+                        loginInfoPanel.chromeDriver.findElementByName("COURSENO").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^0-9]", ""));
+                        loginInfoPanel.chromeDriver.findElementByName("isc_5Xicon").click();
                     }
 
-                    loginInfoPanel.chromeDriver.findElementByName("SUBJECT").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^A-Za-z]+", ""));
-                    loginInfoPanel.chromeDriver.findElementByName("COURSENO").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^0-9]", ""));
-                    loginInfoPanel.chromeDriver.findElementByName("isc_5Xicon").click();
 
                 case "safari":
-                    WebElement sgBoxsf = loginInfoPanel.safariDriver.findElementByClassName("gwt-SuggestBox");
-                    sgBoxsf.sendKeys("Sections");
-                    sgBoxsf.sendKeys(Keys.TAB);
+                    if (loginInfoPanel.operaDriver.toString().contains("null")) {
+                        JOptionPane.showMessageDialog(null,"Start again. You should not close the browser.");
+                        System.exit(-1);
+                    } else {
+                        WebElement sgBoxsf = loginInfoPanel.safariDriver.findElementByClassName("gwt-SuggestBox");
+                        sgBoxsf.sendKeys("Sections");
+                        sgBoxsf.sendKeys(Keys.TAB);
 
-                    try {
-                        Thread.sleep(1500);
-                    } catch (InterruptedException ignored) {
+                        try {
+                            Thread.sleep(1500);
+                        } catch (InterruptedException ignored) {
+                        }
+
+                        loginInfoPanel.safariDriver.findElementByName("SUBJECT").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^A-Za-z]+", ""));
+                        loginInfoPanel.safariDriver.findElementByName("COURSENO").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^0-9]", ""));
+                        loginInfoPanel.safariDriver.findElementByName("isc_5Bicon").click();
                     }
-
-                    loginInfoPanel.safariDriver.findElementByName("SUBJECT").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^A-Za-z]+", ""));
-                    loginInfoPanel.safariDriver.findElementByName("COURSENO").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^0-9]", ""));
-                    loginInfoPanel.safariDriver.findElementByName("isc_5Xicon").click();
-
             }
         }
     }
