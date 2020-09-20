@@ -102,9 +102,11 @@ public class WaitListPanel extends JPanel {
                     break;
             }
 
-            if (exists) {
-                LocalDate date = LocalDate.of(Integer.parseInt(nextdate[2]),Integer.parseInt(nextdate[1]),Integer.parseInt(nextdate[0]));
-                LocalTime time = LocalTime.of(Integer.parseInt(nexttime[2]),Integer.parseInt(nexttime[1]),Integer.parseInt(nexttime[0]));
+            if (true) {
+//                LocalDate date = LocalDate.of(Integer.parseInt(nextdate[2]),Integer.parseInt(nextdate[1]),Integer.parseInt(nextdate[0]));
+//                LocalTime time = LocalTime.of(Integer.parseInt(nexttime[2]),Integer.parseInt(nexttime[1]),Integer.parseInt(nexttime[0]));
+                LocalDate date = LocalDate.of(Integer.parseInt("2020"),Integer.parseInt("09"),Integer.parseInt("20"));
+                LocalTime time = LocalTime.of(Integer.parseInt("16"),Integer.parseInt("15"),Integer.parseInt("45"));
                 LocalDateTime dateTime = LocalDateTime.of(date,time);
                 scheduler(dateTime);
             }
@@ -116,6 +118,46 @@ public class WaitListPanel extends JPanel {
         long delay = ChronoUnit.MILLIS.between(LocalDateTime.now(),localDateTime);
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
         scheduler.schedule(() -> {
+
+            switch (Globals.driver) {
+
+                case "opera" :
+                    WebDriverWait waitop = new WebDriverWait(loginInfoPanel.operaDriver, 1,500);
+                    waitop.until(ExpectedConditions.visibilityOfElementLocated(By.className("gwt-SuggestBox")));
+
+                    WebElement sBox = loginInfoPanel.operaDriver.findElementByClassName("gwt-SuggestBox");
+                    sBox.sendKeys("Course Reg");
+                    sBox.sendKeys(Keys.ENTER);
+
+                    //TODO passing the course and checking the register
+
+                    loginInfoPanel.operaDriver.findElementById("isc_3J").click();
+
+                    break;
+                case "chrome" :
+
+                    WebElement sBoxch = loginInfoPanel.chromeDriver.findElementByClassName("gwt-SuggestBox");
+                    sBoxch.sendKeys("Course Reg");
+                    sBoxch.sendKeys(Keys.ENTER);
+
+                    //TODO passing the course and checking the register
+
+                    loginInfoPanel.chromeDriver.findElementById("isc_3J").click();
+
+                    break;
+
+                case "safari" :
+
+                    WebElement sBoxsf = loginInfoPanel.safariDriver.findElementByClassName("gwt-SuggestBox");
+                    sBoxsf.sendKeys("Course Reg");
+                    sBoxsf.sendKeys(Keys.ENTER);
+
+                    //TODO passing the course and checking the register
+
+                    loginInfoPanel.safariDriver.findElementById("isc_3J").click();
+
+                    break;
+            }
 
         },delay, TimeUnit.MILLISECONDS);
     }

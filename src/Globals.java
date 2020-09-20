@@ -21,6 +21,4 @@ public class Globals {
     private static String username = "";
     private static String password = "";
 
-
-
 }
