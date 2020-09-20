@@ -122,8 +122,6 @@ public class WaitListPanel extends JPanel {
             switch (Globals.driver) {
 
                 case "opera" :
-                    WebDriverWait waitop = new WebDriverWait(loginInfoPanel.operaDriver, 1,500);
-                    waitop.until(ExpectedConditions.visibilityOfElementLocated(By.className("gwt-SuggestBox")));
 
                     WebElement sBox = loginInfoPanel.operaDriver.findElementByClassName("gwt-SuggestBox");
                     sBox.sendKeys("Course Reg");
