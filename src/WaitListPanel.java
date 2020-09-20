@@ -103,10 +103,8 @@ public class WaitListPanel extends JPanel {
             }
 
             if (true) {
-//                LocalDate date = LocalDate.of(Integer.parseInt(nextdate[2]),Integer.parseInt(nextdate[1]),Integer.parseInt(nextdate[0]));
-//                LocalTime time = LocalTime.of(Integer.parseInt(nexttime[2]),Integer.parseInt(nexttime[1]),Integer.parseInt(nexttime[0]));
-                LocalDate date = LocalDate.of(Integer.parseInt("2020"),Integer.parseInt("09"),Integer.parseInt("20"));
-                LocalTime time = LocalTime.of(Integer.parseInt("16"),Integer.parseInt("15"),Integer.parseInt("45"));
+                LocalDate date = LocalDate.of(Integer.parseInt(nextdate[2]),Integer.parseInt(nextdate[1]),Integer.parseInt(nextdate[0]));
+                LocalTime time = LocalTime.of(Integer.parseInt(nexttime[2]),Integer.parseInt(nexttime[1]),Integer.parseInt(nexttime[0]));
                 LocalDateTime dateTime = LocalDateTime.of(date,time);
                 scheduler(dateTime);
             }
