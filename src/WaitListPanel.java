@@ -71,7 +71,7 @@ public class WaitListPanel extends JPanel {
                     sgBoxch.sendKeys("Sections");
                     sgBoxch.sendKeys(Keys.TAB);
 
-                    WebDriverWait waitch = new WebDriverWait(loginInfoPanel.chromeDriver, 2,500);
+                    WebDriverWait waitch = new WebDriverWait(loginInfoPanel.chromeDriver, 3,500);
                     waitch.until(ExpectedConditions.visibilityOfElementLocated(By.id("isc_5X")));
 
                     loginInfoPanel.chromeDriver.findElementByName("SUBJECT").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^A-Za-z]+", ""));
@@ -106,18 +106,68 @@ public class WaitListPanel extends JPanel {
                 LocalDate date = LocalDate.of(Integer.parseInt(nextdate[2]),Integer.parseInt(nextdate[1]),Integer.parseInt(nextdate[0]));
                 LocalTime time = LocalTime.of(Integer.parseInt(nexttime[2]),Integer.parseInt(nexttime[1]),Integer.parseInt(nexttime[0]));
                 LocalDateTime dateTime = LocalDateTime.of(date,time);
-                scheduler(dateTime);
+                scheduleTask(dateTime);
             }
+            ScheduledExecutorService schedulerExec = Executors.newScheduledThreadPool(1);
 
-            //TODO Implement the continuous looker
+            try {
+                this.waitListPanel.waitListCoursesPanel.frequency1.commitEdit();
+            } catch ( java.text.ParseException ignored) {}
+            int value = (Integer) this.waitListPanel.waitListCoursesPanel.frequency1.getValue();
 
+            switch (Globals.driver) {
+                case "opera":
+                    WebElement sgBox = loginInfoPanel.operaDriver.findElementByClassName("gwt-SuggestBox");
+                    sgBox.sendKeys("Course Reg");
+                    sgBox.sendKeys(Keys.TAB);
+
+                    WebDriverWait wait = new WebDriverWait(loginInfoPanel.operaDriver, 2,500);
+                    wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("")));
+
+                    schedulerExec.scheduleAtFixedRate(() -> {
+
+                    },0,value,TimeUnit.MINUTES);
+
+                    break;
+
+                case "chrome":
+
+                    WebElement sgBoxch = loginInfoPanel.chromeDriver.findElementByClassName("gwt-SuggestBox");
+                    sgBoxch.sendKeys("Course Reg");
+                    sgBoxch.sendKeys(Keys.TAB);
+
+                    WebDriverWait waitch = new WebDriverWait(loginInfoPanel.chromeDriver, 3,500);
+                    waitch.until(ExpectedConditions.visibilityOfElementLocated(By.id("")));
+
+                    schedulerExec.scheduleAtFixedRate(() -> {
+
+                    },0,value,TimeUnit.MINUTES);
+
+
+                    break;
+
+                case "safari":
+
+                    WebElement sgBoxsf = loginInfoPanel.safariDriver.findElementByClassName("gwt-SuggestBox");
+                    sgBoxsf.sendKeys("Course Reg");
+                    sgBoxsf.sendKeys(Keys.TAB);
+
+                    WebDriverWait waitsf = new WebDriverWait(loginInfoPanel.safariDriver, 1,500);
+                    waitsf.until(ExpectedConditions.visibilityOfElementLocated(By.name("")));
+
+                    schedulerExec.scheduleAtFixedRate(() -> {
+
+                    },0,value,TimeUnit.MINUTES);
+
+                    break;
+            }
         }
     }
 
-    public void scheduler(LocalDateTime localDateTime)  {
+    public void scheduleTask(LocalDateTime localDateTime)  {
 
         long delay = ChronoUnit.MILLIS.between(LocalDateTime.now(),localDateTime);
-        if (delay < 30) {
+        if (delay < 30000) {
             ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
             scheduler.schedule(() -> {
 
@@ -134,6 +184,7 @@ public class WaitListPanel extends JPanel {
                         loginInfoPanel.operaDriver.findElementById("isc_3J").click();
 
                         break;
+
                     case "chrome" :
 
                         WebElement sBoxch = loginInfoPanel.chromeDriver.findElementByClassName("gwt-SuggestBox");
@@ -162,11 +213,14 @@ public class WaitListPanel extends JPanel {
             },delay, TimeUnit.MILLISECONDS);
         }
         else {
+
             try {
                 Thread.sleep(delay/2);
             } catch (InterruptedException ignored) {
             }
-            scheduler(localDateTime);
+
+            scheduleTask(localDateTime);
+
         }
     }
 }
