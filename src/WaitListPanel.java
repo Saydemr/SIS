@@ -108,53 +108,65 @@ public class WaitListPanel extends JPanel {
                 LocalDateTime dateTime = LocalDateTime.of(date,time);
                 scheduler(dateTime);
             }
+
+            //TODO Implement the continuous looker
+
         }
     }
 
-    public void scheduler(LocalDateTime localDateTime) {
+    public void scheduler(LocalDateTime localDateTime)  {
 
         long delay = ChronoUnit.MILLIS.between(LocalDateTime.now(),localDateTime);
-        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-        scheduler.schedule(() -> {
+        if (delay < 30) {
+            ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+            scheduler.schedule(() -> {
 
-            switch (Globals.driver) {
+                switch (Globals.driver) {
 
-                case "opera" :
+                    case "opera" :
 
-                    WebElement sBox = loginInfoPanel.operaDriver.findElementByClassName("gwt-SuggestBox");
-                    sBox.sendKeys("Course Reg");
-                    sBox.sendKeys(Keys.ENTER);
+                        WebElement sBox = loginInfoPanel.operaDriver.findElementByClassName("gwt-SuggestBox");
+                        sBox.sendKeys("Course Reg");
+                        sBox.sendKeys(Keys.ENTER);
 
-                    //TODO passing the course and checking the register
+                        //TODO passing the course and checking the register
 
-                    loginInfoPanel.operaDriver.findElementById("isc_3J").click();
+                        loginInfoPanel.operaDriver.findElementById("isc_3J").click();
 
-                    break;
-                case "chrome" :
+                        break;
+                    case "chrome" :
 
-                    WebElement sBoxch = loginInfoPanel.chromeDriver.findElementByClassName("gwt-SuggestBox");
-                    sBoxch.sendKeys("Course Reg");
-                    sBoxch.sendKeys(Keys.ENTER);
+                        WebElement sBoxch = loginInfoPanel.chromeDriver.findElementByClassName("gwt-SuggestBox");
+                        sBoxch.sendKeys("Course Reg");
+                        sBoxch.sendKeys(Keys.ENTER);
 
-                    //TODO passing the course and checking the register
+                        //TODO passing the course and checking the register
 
-                    loginInfoPanel.chromeDriver.findElementById("isc_3J").click();
+                        loginInfoPanel.chromeDriver.findElementById("isc_3J").click();
 
-                    break;
+                        break;
 
-                case "safari" :
+                    case "safari" :
 
-                    WebElement sBoxsf = loginInfoPanel.safariDriver.findElementByClassName("gwt-SuggestBox");
-                    sBoxsf.sendKeys("Course Reg");
-                    sBoxsf.sendKeys(Keys.ENTER);
+                        WebElement sBoxsf = loginInfoPanel.safariDriver.findElementByClassName("gwt-SuggestBox");
+                        sBoxsf.sendKeys("Course Reg");
+                        sBoxsf.sendKeys(Keys.ENTER);
 
-                    //TODO passing the course and checking the register
+                        //TODO passing the course and checking the register
 
-                    loginInfoPanel.safariDriver.findElementById("isc_3J").click();
+                        loginInfoPanel.safariDriver.findElementById("isc_3J").click();
 
-                    break;
+                        break;
+                }
+
+            },delay, TimeUnit.MILLISECONDS);
+        }
+        else {
+            try {
+                Thread.sleep(delay/2);
+            } catch (InterruptedException ignored) {
             }
-
-        },delay, TimeUnit.MILLISECONDS);
+            scheduler(localDateTime);
+        }
     }
 }
