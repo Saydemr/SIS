@@ -164,6 +164,7 @@ public class LoginInfoPanel extends JPanel {
             chromeDriver.switchTo().frame(frame);
             try {
                 chromeDriver.findElementByXPath("//*[@id=\"isc_2H\"]/img").click();
+                Globals.doubleLogin = true;
             }
             catch (Exception ignored) {
             }
@@ -215,8 +216,8 @@ public class LoginInfoPanel extends JPanel {
             operaDriver.switchTo().frame(frame);
 
             try {
-
                 operaDriver.findElementByXPath("//*[@id=\"isc_2H\"]/img").click();
+                Globals.doubleLogin = true;
             }
             catch (Exception ignored) {
             }
@@ -268,6 +269,7 @@ public class LoginInfoPanel extends JPanel {
 
             try {
                 safariDriver.findElementByXPath("//*[@id=\"isc_2H\"]/img").click();
+                Globals.doubleLogin = true;
             }
             catch (Exception ignored) {
             }

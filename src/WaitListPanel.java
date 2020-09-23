@@ -56,15 +56,24 @@ public class WaitListPanel extends JPanel {
                     sgBox.sendKeys(Keys.TAB);
 
                     WebDriverWait wait = new WebDriverWait(loginInfoPanel.operaDriver, 5,500);
-                    wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("isc_5X")));
+                    if (Globals.doubleLogin) {
+                        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("isc_5X")));
+                    } else {
+                        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("isc_5A")));
+                    }
 
                     loginInfoPanel.operaDriver.findElementByName("SUBJECT").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^A-Za-z]+", ""));
                     loginInfoPanel.operaDriver.findElementByName("COURSENO").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^0-9]", ""));
-                    loginInfoPanel.operaDriver.findElementById("isc_5X").click();
 
-                    nextdate = loginInfoPanel.operaDriver.findElementByXPath("//*[@id=\"isc_65\"]/h3/center/font[1]/strong").getText().split("/");
-                    nexttime = loginInfoPanel.operaDriver.findElementByXPath("//*[@id=\"isc_65\"]/h3/center/font[2]/strong").getText().split(":");
-
+                    if (Globals.doubleLogin) {
+                        loginInfoPanel.operaDriver.findElementById("isc_5X").click();
+                        nextdate = loginInfoPanel.operaDriver.findElementByXPath("//*[@id=\"isc_65\"]/h3/center/font[1]/strong").getText().split("/");
+                        nexttime = loginInfoPanel.operaDriver.findElementByXPath("//*[@id=\"isc_65\"]/h3/center/font[2]/strong").getText().split(":");
+                    } else {
+                        loginInfoPanel.operaDriver.findElementById("isc_5A").click();
+                        nextdate = loginInfoPanel.operaDriver.findElementByXPath("//*[@id=\"isc_5J\"]/h3/center/font[1]/strong").getText().split("/");
+                        nexttime = loginInfoPanel.operaDriver.findElementByXPath("//*[@id=\"isc_5J\"]/h3/center/font[2]/strong").getText().split(":");
+                    }
 
                     break;
 
@@ -74,15 +83,25 @@ public class WaitListPanel extends JPanel {
                     sgBoxch.sendKeys("Sections");
                     sgBoxch.sendKeys(Keys.TAB);
 
-                    WebDriverWait waitch = new WebDriverWait(loginInfoPanel.chromeDriver, 5,500);
-                    waitch.until(ExpectedConditions.visibilityOfElementLocated(By.id("isc_5X")));
+                    WebDriverWait waitch = new WebDriverWait(loginInfoPanel.chromeDriver, 5,0);
+                    if (Globals.doubleLogin) {
+                        waitch.until(ExpectedConditions.visibilityOfElementLocated(By.id("isc_5X")));
+                    } else {
+                        waitch.until(ExpectedConditions.visibilityOfElementLocated(By.id("isc_5A")));
+                    }
 
                     loginInfoPanel.chromeDriver.findElementByName("SUBJECT").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^A-Za-z]+", ""));
                     loginInfoPanel.chromeDriver.findElementByName("COURSENO").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^0-9]", ""));
-                    loginInfoPanel.chromeDriver.findElementById("isc_5X").click();
 
-                    nextdate = loginInfoPanel.chromeDriver.findElementByXPath("//*[@id=\"isc_65\"]/h3/center/font[1]/strong").toString().split("/");
-                    nexttime = loginInfoPanel.chromeDriver.findElementByXPath("//*[@id=\"isc_65\"]/h3/center/font[2]/strong").toString().split(":");
+                    if (Globals.doubleLogin) {
+                        loginInfoPanel.chromeDriver.findElementById("isc_5X").click();
+                        nextdate = loginInfoPanel.chromeDriver.findElementByXPath("//*[@id=\"isc_65\"]/h3/center/font[1]/strong").toString().split("/");
+                        nexttime = loginInfoPanel.chromeDriver.findElementByXPath("//*[@id=\"isc_65\"]/h3/center/font[2]/strong").toString().split(":");
+                    } else {
+                        loginInfoPanel.chromeDriver.findElementById("isc_5A").click();
+                        nextdate = loginInfoPanel.chromeDriver.findElementByXPath("//*[@id=\"isc_5J\"]/h3/center/font[1]/strong").toString().split("/");
+                        nexttime = loginInfoPanel.chromeDriver.findElementByXPath("//*[@id=\"isc_5J\"]/h3/center/font[2]/strong").toString().split(":");
+                    }
 
                     break;
 
@@ -92,16 +111,25 @@ public class WaitListPanel extends JPanel {
                     sgBoxsf.sendKeys("Sections");
                     sgBoxsf.sendKeys(Keys.TAB);
 
-                    WebDriverWait waitsf = new WebDriverWait(loginInfoPanel.safariDriver, 1,500);
-                    waitsf.until(ExpectedConditions.visibilityOfElementLocated(By.name("SUBJECT")));
+                    WebDriverWait waitsf = new WebDriverWait(loginInfoPanel.safariDriver, 5,0);
+                    if (Globals.doubleLogin) {
+                        waitsf.until(ExpectedConditions.visibilityOfElementLocated(By.id("isc_5X")));
+                    } else {
+                        waitsf.until(ExpectedConditions.visibilityOfElementLocated(By.id("isc_5A")));
+                    }
 
                     loginInfoPanel.safariDriver.findElementByName("SUBJECT").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^A-Za-z]+", ""));
                     loginInfoPanel.safariDriver.findElementByName("COURSENO").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^0-9]", ""));
-                    loginInfoPanel.safariDriver.findElementById("isc_5X").click();
 
-                    nextdate = loginInfoPanel.safariDriver.findElementByCssSelector("#isc_FW > h3:nth-child(1) > center:nth-child(1) > font:nth-child(1)").toString().split("/");
-                    nexttime = loginInfoPanel.safariDriver.findElementByCssSelector("#isc_FW > h3:nth-child(1) > center:nth-child(1) > font:nth-child(2)").toString().split(":");
-
+                    if (Globals.doubleLogin) {
+                        loginInfoPanel.safariDriver.findElementById("isc_5X").click();
+                        nextdate = loginInfoPanel.safariDriver.findElementByXPath("//*[@id=\"isc_65\"]/h3/center/font[1]/strong").toString().split("/");
+                        nexttime = loginInfoPanel.safariDriver.findElementByXPath("//*[@id=\"isc_65\"]/h3/center/font[2]/strong").toString().split(":");
+                    } else {
+                        loginInfoPanel.safariDriver.findElementById("isc_5A").click();
+                        nextdate = loginInfoPanel.safariDriver.findElementByXPath("//*[@id=\"isc_5J\"]/h3/center/font[1]/strong").toString().split("/");
+                        nexttime = loginInfoPanel.safariDriver.findElementByXPath("//*[@id=\"isc_5J\"]/h3/center/font[2]/strong").toString().split(":");
+                    }
                     break;
             }
             ScheduledExecutorService schedulerExec = Executors.newScheduledThreadPool(2);
