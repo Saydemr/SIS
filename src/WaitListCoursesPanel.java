@@ -21,7 +21,7 @@ public class WaitListCoursesPanel extends JPanel {
         JLabel alreadyEnrolled = new JLabel("Enrolled to another section ?");
 
         course1 = new JTextField();
-        frequency1 = new JSpinner(new SpinnerNumberModel(10, 5, 60, 2.5));
+        frequency1 = new JSpinner(new SpinnerNumberModel(10, 5, 30, 1));
         frequency1.setFocusable(false);
         frequency1.setIgnoreRepaint(true);
         section1 = new JTextField();

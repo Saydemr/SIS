@@ -5,10 +5,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CoursesPanel extends JPanel {
-    private final JTable table;
-    private final DefaultTableModel tableModel;
-    private final JButton continueButton;
-    private final CourseRegistrationPanel courseRegistrationPanel;
+    JTable table;
+    DefaultTableModel tableModel;
+    JButton continueButton;
+    CourseRegistrationPanel courseRegistrationPanel;
 
     public CoursesPanel(CourseRegistrationPanel courseRegistrationPanel) {
         this.setLayout(new BorderLayout());
@@ -24,7 +24,7 @@ public class CoursesPanel extends JPanel {
 
         continueButton = new JButton("Start Registration Process");
         continueButton.setEnabled(false);
-        continueButton.addActionListener(new registrationListener());
+        continueButton.addActionListener(new registrationListener(this));
         this.add(continueButton, BorderLayout.SOUTH);
 
     }
@@ -51,8 +51,15 @@ public class CoursesPanel extends JPanel {
     }
 
     public static class registrationListener implements ActionListener {
+        CoursesPanel coursesPanel;
+
+        public registrationListener(CoursesPanel coursesPanel) {
+            this.coursesPanel = coursesPanel;
+        }
 
         public void actionPerformed(ActionEvent e) {
+            this.coursesPanel.courseRegistrationPanel.loginInfoPanel.jTabbedPane.setEnabled(false);
+
             // TODO Implement selenium browser
         }
     }

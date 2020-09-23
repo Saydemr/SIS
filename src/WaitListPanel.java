@@ -43,6 +43,9 @@ public class WaitListPanel extends JPanel {
         }
 
         public void actionPerformed(ActionEvent e) {
+
+            loginInfoPanel.jTabbedPane.setEnabled(false);
+
             boolean exists = false;
             String[] nextdate = null;
             String[] nexttime = null;
@@ -52,15 +55,15 @@ public class WaitListPanel extends JPanel {
                     sgBox.sendKeys("Sections");
                     sgBox.sendKeys(Keys.TAB);
 
-                    WebDriverWait wait = new WebDriverWait(loginInfoPanel.operaDriver, 2,500);
+                    WebDriverWait wait = new WebDriverWait(loginInfoPanel.operaDriver, 5,500);
                     wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("isc_5X")));
 
                     loginInfoPanel.operaDriver.findElementByName("SUBJECT").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^A-Za-z]+", ""));
                     loginInfoPanel.operaDriver.findElementByName("COURSENO").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^0-9]", ""));
                     loginInfoPanel.operaDriver.findElementById("isc_5X").click();
 
-                    nextdate = loginInfoPanel.operaDriver.findElementByCssSelector("#isc_65 > h3 > center > font:nth-child(1) > strong").getText().split("/");
-                    nexttime = loginInfoPanel.operaDriver.findElementByCssSelector("#isc_65 > h3 > center > font:nth-child(2) > strong").getText().split(":");
+                    nextdate = loginInfoPanel.operaDriver.findElementByXPath("//*[@id=\"isc_65\"]/h3/center/font[1]/strong").getText().split("/");
+                    nexttime = loginInfoPanel.operaDriver.findElementByXPath("//*[@id=\"isc_65\"]/h3/center/font[2]/strong").getText().split(":");
 
 
                     break;
@@ -71,15 +74,15 @@ public class WaitListPanel extends JPanel {
                     sgBoxch.sendKeys("Sections");
                     sgBoxch.sendKeys(Keys.TAB);
 
-                    WebDriverWait waitch = new WebDriverWait(loginInfoPanel.chromeDriver, 3,500);
+                    WebDriverWait waitch = new WebDriverWait(loginInfoPanel.chromeDriver, 5,500);
                     waitch.until(ExpectedConditions.visibilityOfElementLocated(By.id("isc_5X")));
 
                     loginInfoPanel.chromeDriver.findElementByName("SUBJECT").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^A-Za-z]+", ""));
                     loginInfoPanel.chromeDriver.findElementByName("COURSENO").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^0-9]", ""));
                     loginInfoPanel.chromeDriver.findElementById("isc_5X").click();
 
-                    nextdate = loginInfoPanel.chromeDriver.findElementByCssSelector("#isc_FW > h3:nth-child(1) > center:nth-child(1) > font:nth-child(1)").toString().split("/");
-                    nexttime = loginInfoPanel.chromeDriver.findElementByCssSelector("#isc_FW > h3:nth-child(1) > center:nth-child(1) > font:nth-child(2)").toString().split(":");
+                    nextdate = loginInfoPanel.chromeDriver.findElementByXPath("//*[@id=\"isc_65\"]/h3/center/font[1]/strong").toString().split("/");
+                    nexttime = loginInfoPanel.chromeDriver.findElementByXPath("//*[@id=\"isc_65\"]/h3/center/font[2]/strong").toString().split(":");
 
                     break;
 
@@ -101,19 +104,18 @@ public class WaitListPanel extends JPanel {
 
                     break;
             }
-
+            ScheduledExecutorService schedulerExec = Executors.newScheduledThreadPool(2);
             if (exists) {
                 LocalDate date = LocalDate.of(Integer.parseInt(nextdate[2]),Integer.parseInt(nextdate[1]),Integer.parseInt(nextdate[0]));
                 LocalTime time = LocalTime.of(Integer.parseInt(nexttime[2]),Integer.parseInt(nexttime[1]),Integer.parseInt(nexttime[0]));
                 LocalDateTime dateTime = LocalDateTime.of(date,time);
-                scheduleTask(dateTime);
+                scheduleTask(dateTime,schedulerExec);
             }
-            ScheduledExecutorService schedulerExec = Executors.newScheduledThreadPool(1);
 
             try {
                 this.waitListPanel.waitListCoursesPanel.frequency1.commitEdit();
-            } catch ( java.text.ParseException ignored) {}
-            int value = (Integer) this.waitListPanel.waitListCoursesPanel.frequency1.getValue();
+            } catch (java.text.ParseException ignored) {}
+            int value = (int) this.waitListPanel.waitListCoursesPanel.frequency1.getValue();
 
             switch (Globals.driver) {
                 case "opera":
@@ -143,7 +145,6 @@ public class WaitListPanel extends JPanel {
 
                     },0,value,TimeUnit.MINUTES);
 
-
                     break;
 
                 case "safari":
@@ -164,12 +165,11 @@ public class WaitListPanel extends JPanel {
         }
     }
 
-    public void scheduleTask(LocalDateTime localDateTime)  {
+    public void scheduleTask(LocalDateTime localDateTime,ScheduledExecutorService executorService)  {
 
         long delay = ChronoUnit.MILLIS.between(LocalDateTime.now(),localDateTime);
         if (delay < 30000) {
-            ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-            scheduler.schedule(() -> {
+            executorService.schedule(() -> {
 
                 switch (Globals.driver) {
 
@@ -219,7 +219,7 @@ public class WaitListPanel extends JPanel {
             } catch (InterruptedException ignored) {
             }
 
-            scheduleTask(localDateTime);
+            scheduleTask(localDateTime,executorService);
 
         }
     }

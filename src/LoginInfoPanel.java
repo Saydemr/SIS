@@ -8,7 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 public class LoginInfoPanel extends JPanel {
     JButton initiateSession;
@@ -18,6 +17,7 @@ public class LoginInfoPanel extends JPanel {
     JTextField usernameField;
     JPasswordField passwordField;
     JFrame jFrame;
+    JTabbedPane jTabbedPane;
     LoginInfoPanel loginInfoPanel = this;
 
     ChromeDriver chromeDriver;
@@ -106,18 +106,18 @@ public class LoginInfoPanel extends JPanel {
                 loginInfoPanel.jFrame.setSize(new Dimension(600,775));
                 loginInfoPanel.jFrame.setResizable(false);
 
-                JTabbedPane jTabbedPane = new JTabbedPane();
+                loginInfoPanel.jTabbedPane = new JTabbedPane();
 
                 CourseRegistrationPanel courseRegistrationPanel = new CourseRegistrationPanel(loginInfoPanel);
                 WaitListPanel waitListPanel = new WaitListPanel(loginInfoPanel);
 
-                jTabbedPane.add("Course Registration", courseRegistrationPanel);
-                jTabbedPane.add("WaitList", waitListPanel);
+                loginInfoPanel.jTabbedPane.add("Course Registration", courseRegistrationPanel);
+                loginInfoPanel.jTabbedPane.add("WaitList", waitListPanel);
 
                 loginInfoPanel.chrome.setEnabled(false);
                 loginInfoPanel.setVisible(false);
 
-                loginInfoPanel.jFrame.add(jTabbedPane, BorderLayout.NORTH);
+                loginInfoPanel.jFrame.add(loginInfoPanel.jTabbedPane, BorderLayout.NORTH);
                 loginInfoPanel.jFrame.repaint();
                 loginInfoPanel.jFrame.revalidate();
             }
@@ -136,9 +136,6 @@ public class LoginInfoPanel extends JPanel {
 
             if (OsInfo.equals("Windows")) {
                 System.setProperty("webdriver.chrome.driver", path + "\\Wchromedriver.exe");
-            } else if (OsInfo.equals("Mac")){
-                Runtime.getRuntime().exec("chmod +x " + path + "/chromedriver");
-                System.setProperty("webdriver.chrome.driver", path + "/chromedriver");
             }
 
             chromeDriver = new ChromeDriver();
@@ -171,7 +168,7 @@ public class LoginInfoPanel extends JPanel {
             catch (Exception ignored) {
             }
 
-        } catch (InterruptedException | IOException e) {
+        } catch (InterruptedException e) {
             JOptionPane.showMessageDialog(null, "Please restart the session.");
             chromeDriver.quit();
             return false;
