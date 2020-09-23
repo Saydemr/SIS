@@ -200,7 +200,6 @@ public class WaitListPanel extends JPanel {
             executorService.schedule(() -> {
 
                 switch (Globals.driver) {
-
                     case "opera" :
 
                         WebElement sBox = loginInfoPanel.operaDriver.findElementByClassName("gwt-SuggestBox");
