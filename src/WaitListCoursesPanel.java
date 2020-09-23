@@ -16,12 +16,12 @@ public class WaitListCoursesPanel extends JPanel {
         this.setBorder(BorderFactory.createTitledBorder("Course Info"));
 
         JLabel courseID = new JLabel("Course ID");
-        JLabel period = new JLabel("Frequency (minutes)");
+        JLabel period = new JLabel("Frequency (seconds)");
         JLabel courseSection = new JLabel("Course Section");
         JLabel alreadyEnrolled = new JLabel("Enrolled to another section ?");
 
         course1 = new JTextField();
-        frequency1 = new JSpinner(new SpinnerNumberModel(10, 5, 30, 1));
+        frequency1 = new JSpinner(new SpinnerNumberModel(10, 30, 300, 15));
         frequency1.setFocusable(false);
         frequency1.setIgnoreRepaint(true);
         section1 = new JTextField();

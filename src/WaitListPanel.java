@@ -156,7 +156,7 @@ public class WaitListPanel extends JPanel {
 
                     schedulerExec.scheduleAtFixedRate(() -> {
 
-                    },0,value,TimeUnit.MINUTES);
+                    },0,value,TimeUnit.SECONDS);
 
                     break;
 
@@ -171,7 +171,7 @@ public class WaitListPanel extends JPanel {
 
                     schedulerExec.scheduleAtFixedRate(() -> {
 
-                    },0,value,TimeUnit.MINUTES);
+                    },0,value,TimeUnit.SECONDS);
 
                     break;
 
@@ -186,7 +186,7 @@ public class WaitListPanel extends JPanel {
 
                     schedulerExec.scheduleAtFixedRate(() -> {
 
-                    },0,value,TimeUnit.MINUTES);
+                    },0,value,TimeUnit.SECONDS);
 
                     break;
             }
