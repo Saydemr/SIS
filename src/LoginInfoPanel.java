@@ -108,10 +108,10 @@ public class LoginInfoPanel extends JPanel {
 
                 loginInfoPanel.jTabbedPane = new JTabbedPane();
 
-                CourseRegistrationPanel courseRegistrationPanel = new CourseRegistrationPanel(loginInfoPanel);
+                RegistrationPanel registrationPanel = new RegistrationPanel(loginInfoPanel);
                 WaitListPanel waitListPanel = new WaitListPanel(loginInfoPanel);
 
-                loginInfoPanel.jTabbedPane.add("Course Registration", courseRegistrationPanel);
+                loginInfoPanel.jTabbedPane.add("Course Registration", registrationPanel);
                 loginInfoPanel.jTabbedPane.add("WaitList", waitListPanel);
 
                 loginInfoPanel.chrome.setEnabled(false);
@@ -130,8 +130,8 @@ public class LoginInfoPanel extends JPanel {
             Globals.driver = "chrome";
             String path = System.getProperty("user.dir");
 
-            String username = loginInfoPanel.usernameField.getText();
-            String password = loginInfoPanel.passwordField.getText();
+            String username = Globals.getUsername();
+            String password = Globals.getPassword();
             String url = "https://sis.ozyegin.edu.tr/OZU_GWT/login.jsp";
 
             if (OsInfo.equals("Windows")) {
@@ -181,8 +181,9 @@ public class LoginInfoPanel extends JPanel {
             Globals.driver = "opera";
             String path = System.getProperty("user.dir");
 
-            String username = loginInfoPanel.usernameField.getText();
-            String password = loginInfoPanel.passwordField.getText();
+            String username = Globals.getUsername();
+            String password = Globals.getPassword();
+
             String url = "https://sis.ozyegin.edu.tr/OZU_GWT/login.jsp";
 
             if (OsInfo.equals("Windows")) {
@@ -232,8 +233,9 @@ public class LoginInfoPanel extends JPanel {
         try {
             Globals.driver = "safari";
 
-            String username = loginInfoPanel.usernameField.getText();
-            String password = loginInfoPanel.passwordField.getText();
+            String username = Globals.getUsername();
+            String password = Globals.getPassword();
+
             String url = "https://sis.ozyegin.edu.tr/OZU_GWT/login.jsp";
 
             if (!OsInfo.equals("Mac")) {

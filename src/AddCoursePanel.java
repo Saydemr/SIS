@@ -4,12 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class AddCoursePanel extends JPanel {
-    CourseRegistrationPanel courseRegistrationPanel;
+    RegistrationPanel registrationPanel;
     JTextField idField;
     JTextField sectionField;
 
-    public AddCoursePanel(CourseRegistrationPanel courseRegistrationPanel) {
-        this.courseRegistrationPanel = courseRegistrationPanel;
+    public AddCoursePanel(RegistrationPanel registrationPanel) {
+        this.registrationPanel = registrationPanel;
         this.setBorder(BorderFactory.createTitledBorder("Add Courses"));
 
         this.setLayout(new GridLayout(5, 2,5,5));
@@ -45,14 +45,14 @@ public class AddCoursePanel extends JPanel {
     public class addCourseListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
-            courseRegistrationPanel.addCourseToList(idField.getText(), sectionField.getText());
+            registrationPanel.addCourseToList(idField.getText(), sectionField.getText());
         }
     }
 
     public class deleteCourseListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
-            courseRegistrationPanel.deleteLastRowFromList();
+            registrationPanel.deleteLastRowFromList();
         }
     }
 }

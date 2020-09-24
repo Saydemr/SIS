@@ -1,13 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class CourseRegistrationPanel extends JPanel {
+public class RegistrationPanel extends JPanel {
 
     AddCoursePanel addCoursePanel;
     CoursesPanel coursesPanel;
     LoginInfoPanel loginInfoPanel;
 
-    public CourseRegistrationPanel(LoginInfoPanel loginInfoPanel) {
+    public RegistrationPanel(LoginInfoPanel loginInfoPanel) {
         this.loginInfoPanel = loginInfoPanel;
 
         this.setLayout(new BorderLayout());

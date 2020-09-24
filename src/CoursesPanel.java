@@ -8,12 +8,12 @@ public class CoursesPanel extends JPanel {
     JTable table;
     DefaultTableModel tableModel;
     JButton continueButton;
-    CourseRegistrationPanel courseRegistrationPanel;
+    RegistrationPanel registrationPanel;
 
-    public CoursesPanel(CourseRegistrationPanel courseRegistrationPanel) {
+    public CoursesPanel(RegistrationPanel registrationPanel) {
         this.setLayout(new BorderLayout());
         this.setBorder(BorderFactory.createTitledBorder("Courses to be registered"));
-        this.courseRegistrationPanel = courseRegistrationPanel;
+        this.registrationPanel = registrationPanel;
 
         Object[] headers = new Object[]{"Course ID", "Section", "Subject"};
         this.tableModel = new DefaultTableModel(headers, 0);
@@ -58,7 +58,7 @@ public class CoursesPanel extends JPanel {
         }
 
         public void actionPerformed(ActionEvent e) {
-            this.coursesPanel.courseRegistrationPanel.loginInfoPanel.jTabbedPane.setEnabled(false);
+            this.coursesPanel.registrationPanel.loginInfoPanel.jTabbedPane.setEnabled(false);
 
             // TODO Implement selenium browser
         }
