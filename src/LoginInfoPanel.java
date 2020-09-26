@@ -140,6 +140,7 @@ public class LoginInfoPanel extends JPanel {
 
             chromeDriver = new ChromeDriver();
             chromeDriver.manage().window().maximize();
+            //chromeDriver.manage().window().setPosition(new Point(-2000,0));
 
             try {
                 chromeDriver.get(url);
@@ -192,6 +193,7 @@ public class LoginInfoPanel extends JPanel {
 
             operaDriver = new OperaDriver();
             operaDriver.manage().window().maximize();
+           // operaDriver.manage().window().setPosition(new Point(-2000,0));
 
             try {
                 operaDriver.get(url);
@@ -245,6 +247,7 @@ public class LoginInfoPanel extends JPanel {
 
             safariDriver = new SafariDriver();
             safariDriver.manage().window().maximize();
+           // safariDriver.manage().window().setPosition(new Point(-2000,0));
 
             try {
                 safariDriver.get(url);

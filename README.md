@@ -8,7 +8,6 @@ Pre-requisites :
   
 ### IMPORTANT NOTICE
 - DO NOT INTERACT WITH THE BROWSER IN ANY WAY. You should interact ONLY AND ONLY with the panel.
-- DO NOT RESIZE THE BROWSER. If you want to continue working on your computer just minimize it.
 - If you gonna leave the computer whole night make sure it does not go to sleep when left idle.
   
 ### Windows :
