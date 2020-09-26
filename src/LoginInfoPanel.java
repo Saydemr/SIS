@@ -103,15 +103,15 @@ public class LoginInfoPanel extends JPanel {
             }
 
             if (loginCheck) {
-                loginInfoPanel.jFrame.setSize(new Dimension(600,775));
+                loginInfoPanel.jFrame.setSize(new Dimension(500,750));
                 loginInfoPanel.jFrame.setResizable(false);
 
                 loginInfoPanel.jTabbedPane = new JTabbedPane();
 
-                RegistrationPanel registrationPanel = new RegistrationPanel(loginInfoPanel);
+                //RegistrationPanel registrationPanel = new RegistrationPanel(loginInfoPanel);
                 WaitListPanel waitListPanel = new WaitListPanel(loginInfoPanel);
 
-                loginInfoPanel.jTabbedPane.add("Course Registration", registrationPanel);
+                //loginInfoPanel.jTabbedPane.add("Course Registration", registrationPanel);
                 loginInfoPanel.jTabbedPane.add("WaitList", waitListPanel);
 
                 loginInfoPanel.chrome.setEnabled(false);
