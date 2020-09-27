@@ -1,7 +1,7 @@
 # OzU Automated Course Registration
 Ozyegin University SIS fast course registration and waitlisting project. Selenium & Java.
 
-Pre-requisites :
+#### Pre-requisites :
 
 - Java 8. If you do not have java installed on your device please download it from here. (https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html)
 - Mac users must enable safari automation mode. To do that Choose Safari > Preferences, and on the Advanced tab, select “Show Develop menu in menu bar.” Choose Develop > Allow Remote Automation.
