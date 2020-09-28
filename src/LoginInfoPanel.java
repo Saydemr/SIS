@@ -18,7 +18,6 @@ public class LoginInfoPanel extends JPanel {
     JPasswordField passwordField;
     JFrame jFrame;
     JTabbedPane jTabbedPane;
-    LoginInfoPanel loginInfoPanel = this;
 
     ChromeDriver chromeDriver;
     OperaDriver operaDriver;
@@ -43,7 +42,7 @@ public class LoginInfoPanel extends JPanel {
 
         initiateSession = new JButton("Open Session");
 
-        this.initiateSession.addActionListener(new openSessionListener(loginInfoPanel));
+        this.initiateSession.addActionListener(new openSessionListener(this));
 
         ButtonGroup buttonGroup = new ButtonGroup();
 
@@ -87,7 +86,7 @@ public class LoginInfoPanel extends JPanel {
             boolean loginCheck = false;
 
             if (loginInfoPanel.usernameField.getText().isEmpty() || loginInfoPanel.passwordField.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Please enter a username and password");
+                JOptionPane.showMessageDialog(null, "Please enter the username and password");
             } else {
                 Globals.setUsername(this.loginInfoPanel.usernameField.getText());
                 Globals.setPassword(this.loginInfoPanel.passwordField.getText());
