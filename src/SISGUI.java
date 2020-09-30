@@ -36,8 +36,6 @@ public class SISGUI {
             LoginInfoPanel loginInfoPanel = new LoginInfoPanel(frame);
             frame.add(loginInfoPanel, BorderLayout.NORTH);
 
-
-
             frame.pack();
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);

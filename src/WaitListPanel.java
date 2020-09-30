@@ -86,8 +86,7 @@ public class WaitListPanel extends JPanel {
                     coConfirm = loginInfoPanel.driver.findElement(By.xpath("//*[@id=\"isc_5Ytable\"]/tbody/tr/td[2]/div/nobr")).getText().equals(this.courseNo);
                     seConfirm = loginInfoPanel.driver.findElement(By.xpath("//*[@id=\"isc_5Ytable\"]/tbody/tr/td[3]/div/nobr")).getText().equals(this.sectionNo);
                     exists = suConfirm && coConfirm && seConfirm;
-                } catch (Exception exception) {
-                    exists = false;
+                } catch (Exception ignored) {
                 }
             }
             else {
@@ -145,7 +144,8 @@ public class WaitListPanel extends JPanel {
                 sBox.sendKeys("Course Reg");
                 sBox.sendKeys(Keys.ENTER);
 
-                  //TODO passing the course and checking the register
+                //TODO passing the course and checking the register
+
                 loginInfoPanel.driver.findElement(By.id("isc_3J")).click();
 
             },delay, TimeUnit.MILLISECONDS);
