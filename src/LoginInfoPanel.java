@@ -1,3 +1,5 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.opera.OperaDriver;
@@ -18,7 +20,7 @@ public class LoginInfoPanel extends JPanel {
     JPasswordField passwordField;
     JFrame jFrame;
     JTabbedPane jTabbedPane;
-
+    WebDriver driver;
     ChromeDriver chromeDriver;
     OperaDriver operaDriver;
     SafariDriver safariDriver;
@@ -76,7 +78,7 @@ public class LoginInfoPanel extends JPanel {
         this.add(initiateSession);
     }
 
-    public static class openSessionListener implements ActionListener {
+    public class openSessionListener implements ActionListener {
         LoginInfoPanel loginInfoPanel;
 
         public openSessionListener(LoginInfoPanel loginInfoPanel) {
@@ -92,15 +94,7 @@ public class LoginInfoPanel extends JPanel {
             } else {
                 Globals.setUsername(this.loginInfoPanel.usernameField.getText());
                 Globals.setPassword(this.loginInfoPanel.passwordField.getText());
-                if (loginInfoPanel.chrome.isSelected()) {
-                    loginCheck = loginInfoPanel.chrome();
-                } else if (loginInfoPanel.opera.isSelected()) {
-                    loginCheck = loginInfoPanel.opera();
-                } else if (loginInfoPanel.safari.isSelected()) {
-                    loginCheck = loginInfoPanel.safari();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Please select the browser you are using in this computer");
-                }
+                loginCheck = browserInit();
             }
 
             if (loginCheck) {
@@ -125,165 +119,172 @@ public class LoginInfoPanel extends JPanel {
         }
     }
 
-    private boolean chrome() {
+    private boolean browserInit() {
 
-        try {
-            Globals.driver = "chrome";
-            String path = System.getProperty("user.dir");
+        String path = System.getProperty("user.dir");
+        String username = Globals.getUsername();
+        String password = Globals.getPassword();
+        String url = "https://sis.ozyegin.edu.tr/OZU_GWT/login.jsp";
 
-            String username = Globals.getUsername();
-            String password = Globals.getPassword();
-            String url = "https://sis.ozyegin.edu.tr/OZU_GWT/login.jsp";
-
-            if (OsInfo.equals("Windows")) {
-                System.setProperty("webdriver.chrome.driver", path + "\\Wchromedriver.exe");
-            }
-
-            chromeDriver = new ChromeDriver();
-            chromeDriver.manage().window().maximize();
-            //chromeDriver.manage().window().setPosition(new Point(-2000,0));
-
-            try {
-                chromeDriver.get(url);
-            } catch (Exception e) {
-                chromeDriver.findElementById("enableTls10Button").click();
-            }
-
-            chromeDriver.findElementById("username").sendKeys(username);
-            chromeDriver.findElementById("password").sendKeys(password);
-            Select select = new Select(chromeDriver.findElementById("language"));
-            select.selectByValue("en");
-            chromeDriver.findElementById("submit").click();
-
-            Thread.sleep(1500);
-
-            if (chromeDriver.getCurrentUrl().equals("https://sis.ozyegin.edu.tr/OZU_GWT/login.jsp")) {
-                JOptionPane.showMessageDialog(null, "Invalid login info. Please start again.");
-                chromeDriver.quit();
-                return false;
-            }
-            WebElement frame = chromeDriver.findElementByCssSelector("[id^='SIS']");
-            chromeDriver.switchTo().frame(frame);
-            try {
-                chromeDriver.findElementByXPath("//*[@id=\"isc_2H\"]/img").click();
-                Globals.doubleLogin = true;
-            }
-            catch (Exception ignored) {
-            }
-
-        } catch (InterruptedException e) {
-            JOptionPane.showMessageDialog(null, "Please restart the session.");
-            chromeDriver.quit();
-            return false;
-        }
-        return true;
-    }
-    private boolean opera() {
-        try {
-            Globals.driver = "opera";
-            String path = System.getProperty("user.dir");
-
-            String username = Globals.getUsername();
-            String password = Globals.getPassword();
-
-            String url = "https://sis.ozyegin.edu.tr/OZU_GWT/login.jsp";
-
-            if (OsInfo.equals("Windows")) {
-                System.setProperty("webdriver.opera.driver", path + "\\Woperadriver.exe");
-            }
-
-            operaDriver = new OperaDriver();
-            operaDriver.manage().window().maximize();
-           // operaDriver.manage().window().setPosition(new Point(-2000,0));
-
-            try {
-                operaDriver.get(url);
-            } catch (Exception e) {
-                operaDriver.findElementById("enableTls10Button").click();
-            }
-
-            operaDriver.findElementById("username").sendKeys(username);
-            operaDriver.findElementById("password").sendKeys(password);
-            Select select = new Select(operaDriver.findElementById("language"));
-            select.selectByValue("en");
-            operaDriver.findElementById("submit").click();
-
-            Thread.sleep(1500);
-
-            if (operaDriver.getCurrentUrl().equals("https://sis.ozyegin.edu.tr/OZU_GWT/login.jsp")) {
-                JOptionPane.showMessageDialog(null, "Invalid login info. Please start again.");
-                operaDriver.quit();
-                return false;
-            }
-
-            WebElement frame = operaDriver.findElementByCssSelector("[id^='SIS']");
-            operaDriver.switchTo().frame(frame);
-
-            try {
-                operaDriver.findElementByXPath("//*[@id=\"isc_2H\"]/img").click();
-                Globals.doubleLogin = true;
-            }
-            catch (Exception ignored) {
-            }
-        } catch (InterruptedException e) {
-            JOptionPane.showMessageDialog(null, "Please restart the session.");
-            operaDriver.quit();
-            return false;
-        }
-        return true;
-    }
-    private boolean safari() {
-        try {
-            Globals.driver = "safari";
-
-            String username = Globals.getUsername();
-            String password = Globals.getPassword();
-
-            String url = "https://sis.ozyegin.edu.tr/OZU_GWT/login.jsp";
-
+        if (this.chrome.isSelected()) {
+            System.setProperty("webdriver.chrome.driver", path + "\\Wchromedriver.exe");
+            driver = new ChromeDriver();
+        } else if (this.opera.isSelected()) {
+            System.setProperty("webdriver.opera.driver", path + "\\Woperadriver.exe");
+            driver = new OperaDriver();
+        } else if (this.safari.isSelected()) {
             if (!OsInfo.equals("Mac")) {
-               JOptionPane.showMessageDialog(null,"You should not be here");
-               System.exit(-1);
+                JOptionPane.showMessageDialog(null, "You should not be here");
+                System.exit(-1);
             }
+            driver = new SafariDriver();
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select the browser you are using in this computer");
+        }
 
-            safariDriver = new SafariDriver();
-            safariDriver.manage().window().maximize();
-           // safariDriver.manage().window().setPosition(new Point(-2000,0));
+        driver.manage().window().maximize();
+        driver.manage().window().setPosition(new org.openqa.selenium.Point(-2000, 0));
 
-            try {
-                safariDriver.get(url);
-            } catch (Exception e) {
-                safariDriver.findElementById("enableTls10Button").click();
-            }
+        try {
+            driver.get(url);
+        } catch (Exception e) {
+            driver.findElement(By.id("enableTls10Button")).click();
+        }
 
-            safariDriver.findElementById("username").sendKeys(username);
-            safariDriver.findElementById("password").sendKeys(password);
-            Select select = new Select(safariDriver.findElementById("language"));
-            select.selectByValue("en");
-            safariDriver.findElementById("submit").click();
+        driver.findElement(By.id("username")).sendKeys(username);
+        driver.findElement(By.id("password")).sendKeys(password);
+        Select select = new Select(chromeDriver.findElementById("language"));
+        select.selectByValue("en");
+        driver.findElement(By.id("submit")).click();
 
+        try {
             Thread.sleep(1500);
-
-            if (safariDriver.getCurrentUrl().equals("https://sis.ozyegin.edu.tr/OZU_GWT/login.jsp")) {
-                JOptionPane.showMessageDialog(null, "Invalid login info. Please start again.");
-                safariDriver.quit();
-                return false;
-            }
-
-            WebElement frame = safariDriver.findElementByCssSelector("[id^='SIS']");
-            safariDriver.switchTo().frame(frame);
-
-            try {
-                safariDriver.findElementByXPath("//*[@id=\"isc_2H\"]/img").click();
-                Globals.doubleLogin = true;
-            }
-            catch (Exception ignored) {
-            }
-        } catch (InterruptedException e) {
-            JOptionPane.showMessageDialog(null, "Please restart the session.");
-            safariDriver.quit();
+        } catch (InterruptedException ignored) {
+            driver.quit();
             return false;
+        }
+
+        if (driver.getCurrentUrl().equals("https://sis.ozyegin.edu.tr/OZU_GWT/login.jsp")) {
+            JOptionPane.showMessageDialog(null, "Invalid login info. Please start again.");
+            driver.quit();
+            return false;
+        }
+
+        WebElement frame = driver.findElement(By.cssSelector("[id^='SIS']"));
+        driver.switchTo().frame(frame);
+        try {
+            driver.findElement(By.xpath("//*[@id=\"isc_2H\"]/img")).click();
+            Globals.doubleLogin = true;
+        } catch (Exception ignored) {
         }
         return true;
     }
 }
+
+
+//    }
+//    private boolean opera() {
+//        try {
+//            Globals.driver = "opera";
+//            String path = System.getProperty("user.dir");
+//
+//            String username = Globals.getUsername();
+//            String password = Globals.getPassword();
+//
+//            String url = "https://sis.ozyegin.edu.tr/OZU_GWT/login.jsp";
+//
+//            if (OsInfo.equals("Windows")) {
+//
+//            }
+//
+//            operaDriver = new OperaDriver();
+//            operaDriver.manage().window().maximize();
+//           // operaDriver.manage().window().setPosition(new Point(-2000,0));
+//
+//            try {
+//                operaDriver.get(url);
+//            } catch (Exception e) {
+//                operaDriver.findElementById("enableTls10Button").click();
+//            }
+//
+//            operaDriver.findElementById("username").sendKeys(username);
+//            operaDriver.findElementById("password").sendKeys(password);
+//            Select select = new Select(operaDriver.findElementById("language"));
+//            select.selectByValue("en");
+//            operaDriver.findElementById("submit").click();
+//
+//            Thread.sleep(1500);
+//
+//            if (operaDriver.getCurrentUrl().equals("https://sis.ozyegin.edu.tr/OZU_GWT/login.jsp")) {
+//                JOptionPane.showMessageDialog(null, "Invalid login info. Please start again.");
+//                operaDriver.quit();
+//                return false;
+//            }
+//
+//            WebElement frame = operaDriver.findElementByCssSelector("[id^='SIS']");
+//            operaDriver.switchTo().frame(frame);
+//
+//            try {
+//                operaDriver.findElementByXPath("//*[@id=\"isc_2H\"]/img").click();
+//                Globals.doubleLogin = true;
+//            }
+//            catch (Exception ignored) {
+//            }
+//        } catch (InterruptedException e) {
+//            JOptionPane.showMessageDialog(null, "Please restart the session.");
+//            operaDriver.quit();
+//            return false;
+//        }
+//        return true;
+//    }
+//    private boolean safari() {
+//        try {
+//            Globals.driver = "safari";
+//
+//            String username = Globals.getUsername();
+//            String password = Globals.getPassword();
+//
+//            String url = "https://sis.ozyegin.edu.tr/OZU_GWT/login.jsp";
+//
+//
+//
+//            safariDriver = new SafariDriver();
+//            safariDriver.manage().window().maximize();
+//           // safariDriver.manage().window().setPosition(new Point(-2000,0));
+//
+//            try {
+//                safariDriver.get(url);
+//            } catch (Exception e) {
+//                safariDriver.findElementById("enableTls10Button").click();
+//            }
+//
+//            safariDriver.findElementById("username").sendKeys(username);
+//            safariDriver.findElementById("password").sendKeys(password);
+//            Select select = new Select(safariDriver.findElementById("language"));
+//            select.selectByValue("en");
+//            safariDriver.findElementById("submit").click();
+//
+//            Thread.sleep(1500);
+//
+//            if (safariDriver.getCurrentUrl().equals("https://sis.ozyegin.edu.tr/OZU_GWT/login.jsp")) {
+//                JOptionPane.showMessageDialog(null, "Invalid login info. Please start again.");
+//                safariDriver.quit();
+//                return false;
+//            }
+//
+//            WebElement frame = safariDriver.findElementByCssSelector("[id^='SIS']");
+//            safariDriver.switchTo().frame(frame);
+//
+//            try {
+//                safariDriver.findElementByXPath("//*[@id=\"isc_2H\"]/img").click();
+//                Globals.doubleLogin = true;
+//            }
+//            catch (Exception ignored) {
+//            }
+//        } catch (InterruptedException e) {
+//            JOptionPane.showMessageDialog(null, "Please restart the session.");
+//            safariDriver.quit();
+//            return false;
+//        }
+//        return true;
+//    }

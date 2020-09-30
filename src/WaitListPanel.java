@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -201,6 +202,11 @@ public class WaitListPanel extends JPanel {
                     }
                     break;
             }
+            System.out.println(seConfirm);
+            System.out.println(suConfirm);
+            System.out.println(coConfirm);
+            System.out.println(exists);
+
 
             ScheduledExecutorService schedulerExec = Executors.newScheduledThreadPool(2);
 
@@ -213,7 +219,7 @@ public class WaitListPanel extends JPanel {
 
             try {
                 this.waitListPanel.waitListCoursesPanel.frequency1.commitEdit();
-            } catch (java.text.ParseException ignored) {}
+            } catch (ParseException ignored) {}
             int value = (int) this.waitListPanel.waitListCoursesPanel.frequency1.getValue();
 
             switch (Globals.driver) {
@@ -237,17 +243,11 @@ public class WaitListPanel extends JPanel {
                     WebElement sgBoxch = loginInfoPanel.chromeDriver.findElementByClassName("gwt-SuggestBox");
                     sgBoxch.sendKeys("Course Reg");
                     sgBoxch.sendKeys(Keys.TAB);
-
                     WebDriverWait waitch = new WebDriverWait(loginInfoPanel.chromeDriver, 3,500);
-                    waitch.until(ExpectedConditions.visibilityOfElementLocated(By.id("SUBJECT")));
+                    waitch.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.className("comboBoxItemPickerCell")));
 
-                    schedulerExec.scheduleAtFixedRate(() -> {
-                        loginInfoPanel.chromeDriver.findElementByName("SUBJECT").click();
-                        loginInfoPanel.chromeDriver.findElementByName("SUBJECT").clear();
-                        loginInfoPanel.chromeDriver.findElementByName("SUBJECT").sendKeys(subject);
-
-
-                    },0,value,TimeUnit.SECONDS);
+//                    schedulerExec.scheduleAtFixedRate(() -> {
+//                    },0,value,TimeUnit.SECONDS);
 
                     break;
 
@@ -327,5 +327,22 @@ public class WaitListPanel extends JPanel {
             scheduleTask(localDateTime,executorService);
 
         }
+    }
+    public String subjectConverter(String sub) {
+        String subj = sub.toUpperCase();
+        switch (subj) {
+            case "AVM" :
+                return  "Aviation Management";
+            case "FE" :
+                return  "Engineering Facultyie";
+            case "LAW" :
+            case "HUK" :
+                return "Law";
+            case "CS" :
+                return  "Computer Science";
+            case  "EE" :
+                return  "Electrical and Electronics Engineering";
+        }
+        return "";
     }
 }
