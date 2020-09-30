@@ -201,7 +201,9 @@ public class WaitListPanel extends JPanel {
                     }
                     break;
             }
+
             ScheduledExecutorService schedulerExec = Executors.newScheduledThreadPool(2);
+
             if (exists) {
                 LocalDate date = LocalDate.of(Integer.parseInt(nextdate[2]),Integer.parseInt(nextdate[1]),Integer.parseInt(nextdate[0]));
                 LocalTime time = LocalTime.of(Integer.parseInt(nexttime[2]),Integer.parseInt(nexttime[1]),Integer.parseInt(nexttime[0]));
@@ -214,11 +216,6 @@ public class WaitListPanel extends JPanel {
             } catch (java.text.ParseException ignored) {}
             int value = (int) this.waitListPanel.waitListCoursesPanel.frequency1.getValue();
 
-            try {
-                Thread.sleep(100000000);
-            } catch (InterruptedException interruptedException) {
-                interruptedException.printStackTrace();
-            }
             switch (Globals.driver) {
                 case "opera":
                     WebElement sgBox = loginInfoPanel.operaDriver.findElementByClassName("gwt-SuggestBox");
@@ -233,7 +230,7 @@ public class WaitListPanel extends JPanel {
                     },0,value,TimeUnit.SECONDS);
 
                     break;
-                //*[@id="isc_66table"]/tbody/tr/td[1]/div/nobr
+
 
                 case "chrome":
 
@@ -242,9 +239,13 @@ public class WaitListPanel extends JPanel {
                     sgBoxch.sendKeys(Keys.TAB);
 
                     WebDriverWait waitch = new WebDriverWait(loginInfoPanel.chromeDriver, 3,500);
-                    waitch.until(ExpectedConditions.visibilityOfElementLocated(By.id("")));
+                    waitch.until(ExpectedConditions.visibilityOfElementLocated(By.id("SUBJECT")));
 
                     schedulerExec.scheduleAtFixedRate(() -> {
+                        loginInfoPanel.chromeDriver.findElementByName("SUBJECT").click();
+                        loginInfoPanel.chromeDriver.findElementByName("SUBJECT").clear();
+                        loginInfoPanel.chromeDriver.findElementByName("SUBJECT").sendKeys(subject);
+
 
                     },0,value,TimeUnit.SECONDS);
 
@@ -257,9 +258,11 @@ public class WaitListPanel extends JPanel {
                     sgBoxsf.sendKeys(Keys.TAB);
 
                     WebDriverWait waitsf = new WebDriverWait(loginInfoPanel.safariDriver, 1,500);
-                    waitsf.until(ExpectedConditions.visibilityOfElementLocated(By.name("")));
+                    waitsf.until(ExpectedConditions.visibilityOfElementLocated(By.name("SUBJECT")));
 
                     schedulerExec.scheduleAtFixedRate(() -> {
+
+
 
                     },0,value,TimeUnit.SECONDS);
 

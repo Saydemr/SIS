@@ -35,6 +35,8 @@ public class LoginInfoPanel extends JPanel {
         JLabel username = new JLabel("Username");
         JLabel password = new JLabel("Password");
 
+
+
         this.usernameField = new JTextField();
         this.passwordField = new JPasswordField();
 
