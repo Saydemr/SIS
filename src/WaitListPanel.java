@@ -20,6 +20,7 @@ import java.util.concurrent.TimeUnit;
 public class WaitListPanel extends JPanel {
     LoginInfoPanel loginInfoPanel;
     WaitListCoursesPanel waitListCoursesPanel;
+    JButton startWaitList;
 
     public WaitListPanel(LoginInfoPanel loginInfoPanel) {
         this.loginInfoPanel = loginInfoPanel;
@@ -28,7 +29,7 @@ public class WaitListPanel extends JPanel {
         waitListCoursesPanel = new WaitListCoursesPanel(this);
         this.add(waitListCoursesPanel, BorderLayout.CENTER);
 
-        JButton startWaitList = new JButton("Start WaitListing Process");
+        startWaitList = new JButton("Start WaitListing Process");
         this.add(startWaitList, BorderLayout.SOUTH);
         startWaitList.addActionListener(new waitListListener(loginInfoPanel, this));
 
@@ -47,7 +48,6 @@ public class WaitListPanel extends JPanel {
         public waitListListener(LoginInfoPanel loginInfoPanel, WaitListPanel waitListPanel) {
             this.loginInfoPanel = loginInfoPanel;
             this.waitListPanel = waitListPanel;
-
         }
 
         public void actionPerformed(ActionEvent e) {
@@ -56,10 +56,11 @@ public class WaitListPanel extends JPanel {
             this.sectionNo = this.waitListPanel.waitListCoursesPanel.section1.getText().replaceAll("[^A-Za-z]+", "");
 
             loginInfoPanel.jTabbedPane.setEnabled(false);
+            waitListPanel.startWaitList.setEnabled(false);
 
             boolean exists = false;
-            String[] nextdate = null;
-            String[] nexttime = null;
+            String[] nextdate;
+            String[] nexttime;
 
             WebElement sgBox = loginInfoPanel.driver.findElement(By.className("gwt-SuggestBox"));
             sgBox.sendKeys("Sections");
@@ -109,7 +110,7 @@ public class WaitListPanel extends JPanel {
             System.out.println(coConfirm);
             System.out.println(exists);
 
-            ScheduledExecutorService schedulerExec = Executors.newScheduledThreadPool(2);
+            ScheduledExecutorService schedulerExec = Executors.newScheduledThreadPool(1);
 
             if (exists) {
                 LocalDate date = LocalDate.of(Integer.parseInt(nextdate[2]),Integer.parseInt(nextdate[1]),Integer.parseInt(nextdate[0]));
@@ -117,6 +118,11 @@ public class WaitListPanel extends JPanel {
                 LocalDateTime dateTime = LocalDateTime.of(date,time);
                 scheduleTask(dateTime,schedulerExec);
             }
+
+            System.out.println(seConfirm);
+            System.out.println(suConfirm);
+            System.out.println(coConfirm);
+            System.out.println(exists);
 
             try {
                 this.waitListPanel.waitListCoursesPanel.frequency1.commitEdit();
@@ -142,7 +148,7 @@ public class WaitListPanel extends JPanel {
 
                 WebElement sBox = loginInfoPanel.driver.findElement(By.className("gwt-SuggestBox"));
                 sBox.sendKeys("Course Reg");
-                sBox.sendKeys(Keys.ENTER);
+                sBox.sendKeys(Keys.TAB);
 
                 //TODO passing the course and checking the register
 
@@ -174,6 +180,8 @@ public class WaitListPanel extends JPanel {
                 return  "Computer Science";
             case  "EE" :
                 return  "Electrical and Electronics Engineering";
+            case "ME" :
+                return "Mechanical Engineering";
         }
         return "";
     }

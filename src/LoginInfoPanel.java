@@ -140,7 +140,7 @@ public class LoginInfoPanel extends JPanel {
         }
 
         driver.manage().window().maximize();
-        driver.manage().window().setPosition(new org.openqa.selenium.Point(-2000, 0));
+      //  driver.manage().window().setPosition(new org.openqa.selenium.Point(-2000, 0));
 
         try {
             driver.get(url);
