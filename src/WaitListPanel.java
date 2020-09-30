@@ -36,13 +36,23 @@ public class WaitListPanel extends JPanel {
     public class waitListListener implements ActionListener {
         LoginInfoPanel loginInfoPanel;
         WaitListPanel waitListPanel;
+        String subject;
+        String courseNo;
+        String sectionNo;
+        boolean suConfirm;
+        boolean coConfirm;
+        boolean seConfirm;
 
         public waitListListener(LoginInfoPanel loginInfoPanel, WaitListPanel waitListPanel) {
             this.loginInfoPanel = loginInfoPanel;
             this.waitListPanel = waitListPanel;
+
         }
 
         public void actionPerformed(ActionEvent e) {
+            this.subject = this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^A-Za-z]+", "");
+            this.courseNo = this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^0-9]+", "");
+            this.sectionNo = this.waitListPanel.waitListCoursesPanel.section1.getText().replaceAll("[^A-Za-z]+", "");
 
             loginInfoPanel.jTabbedPane.setEnabled(false);
 
@@ -55,24 +65,44 @@ public class WaitListPanel extends JPanel {
                     sgBox.sendKeys("Sections");
                     sgBox.sendKeys(Keys.TAB);
 
-                    WebDriverWait wait = new WebDriverWait(loginInfoPanel.operaDriver, 5,500);
+                    WebDriverWait wait = new WebDriverWait(loginInfoPanel.operaDriver, 5,0);
                     if (Globals.doubleLogin) {
                         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("isc_5X")));
                     } else {
                         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("isc_5A")));
                     }
 
-                    loginInfoPanel.operaDriver.findElementByName("SUBJECT").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^A-Za-z]+", ""));
-                    loginInfoPanel.operaDriver.findElementByName("COURSENO").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^0-9]", ""));
+                    loginInfoPanel.operaDriver.findElementByName("SUBJECT").sendKeys(subject);
+                    loginInfoPanel.operaDriver.findElementByName("COURSENO").sendKeys(courseNo);
+                    loginInfoPanel.operaDriver.findElementByName("SECTIONNO").sendKeys(sectionNo);
 
                     if (Globals.doubleLogin) {
                         loginInfoPanel.operaDriver.findElementById("isc_5X").click();
                         nextdate = loginInfoPanel.operaDriver.findElementByXPath("//*[@id=\"isc_65\"]/h3/center/font[1]/strong").getText().split("/");
                         nexttime = loginInfoPanel.operaDriver.findElementByXPath("//*[@id=\"isc_65\"]/h3/center/font[2]/strong").getText().split(":");
-                    } else {
+
+                        try {
+                            suConfirm = loginInfoPanel.operaDriver.findElementByXPath("//*[@id=\"isc_5Ytable\"]/tbody/tr/td[1]/div/nobr").getText().equals(this.subject);
+                            coConfirm = loginInfoPanel.operaDriver.findElementByXPath("//*[@id=\"isc_5Ytable\"]/tbody/tr/td[2]/div/nobr").getText().equals(this.courseNo);
+                            seConfirm = loginInfoPanel.operaDriver.findElementByXPath("//*[@id=\"isc_5Ytable\"]/tbody/tr/td[3]/div/nobr").getText().equals(this.sectionNo);
+                            exists = suConfirm && coConfirm && seConfirm;
+                        } catch (Exception exception) {
+                            exists = false;
+                        }
+                    }
+                    else {
                         loginInfoPanel.operaDriver.findElementById("isc_5A").click();
                         nextdate = loginInfoPanel.operaDriver.findElementByXPath("//*[@id=\"isc_5J\"]/h3/center/font[1]/strong").getText().split("/");
                         nexttime = loginInfoPanel.operaDriver.findElementByXPath("//*[@id=\"isc_5J\"]/h3/center/font[2]/strong").getText().split(":");
+
+                        try {
+                            suConfirm = loginInfoPanel.operaDriver.findElementByXPath("//*[@id=\"isc_5Ctable\"]/tbody/tr/td[1]/div/nobr").getText().equals(this.subject);
+                            coConfirm = loginInfoPanel.operaDriver.findElementByXPath("//*[@id=\"isc_5Ctable\"]/tbody/tr/td[2]/div/nobr").getText().equals(this.courseNo);
+                            seConfirm = loginInfoPanel.operaDriver.findElementByXPath("//*[@id=\"isc_5Ctable\"]/tbody/tr/td[3]/div/nobr").getText().equals(this.sectionNo);
+                            exists = suConfirm && coConfirm && seConfirm;
+                        } catch (Exception exception) {
+                            exists = false;
+                        }
                     }
 
                     break;
@@ -90,19 +120,38 @@ public class WaitListPanel extends JPanel {
                         waitch.until(ExpectedConditions.visibilityOfElementLocated(By.id("isc_5A")));
                     }
 
-                    loginInfoPanel.chromeDriver.findElementByName("SUBJECT").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^A-Za-z]+", ""));
-                    loginInfoPanel.chromeDriver.findElementByName("COURSENO").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^0-9]", ""));
+                    loginInfoPanel.chromeDriver.findElementByName("SUBJECT").sendKeys(subject);
+                    loginInfoPanel.chromeDriver.findElementByName("COURSENO").sendKeys(courseNo);
+                    loginInfoPanel.chromeDriver.findElementByName("SECTIONNO").sendKeys(sectionNo);
 
                     if (Globals.doubleLogin) {
                         loginInfoPanel.chromeDriver.findElementById("isc_5X").click();
                         nextdate = loginInfoPanel.chromeDriver.findElementByXPath("//*[@id=\"isc_65\"]/h3/center/font[1]/strong").toString().split("/");
                         nexttime = loginInfoPanel.chromeDriver.findElementByXPath("//*[@id=\"isc_65\"]/h3/center/font[2]/strong").toString().split(":");
+                        try {
+                            suConfirm = loginInfoPanel.chromeDriver.findElementByXPath("//*[@id=\"isc_5Ytable\"]/tbody/tr/td[1]/div/nobr").getText().equals(this.subject);
+                            coConfirm = loginInfoPanel.chromeDriver.findElementByXPath("//*[@id=\"isc_5Ytable\"]/tbody/tr/td[2]/div/nobr").getText().equals(this.courseNo);
+                            seConfirm = loginInfoPanel.chromeDriver.findElementByXPath("//*[@id=\"isc_5Ytable\"]/tbody/tr/td[3]/div/nobr").getText().equals(this.sectionNo);
+                            exists = suConfirm && coConfirm && seConfirm;
+                        } catch (Exception exception) {
+                            exists = false;
+                        }
+
                     } else {
                         loginInfoPanel.chromeDriver.findElementById("isc_5A").click();
                         nextdate = loginInfoPanel.chromeDriver.findElementByXPath("//*[@id=\"isc_5J\"]/h3/center/font[1]/strong").toString().split("/");
                         nexttime = loginInfoPanel.chromeDriver.findElementByXPath("//*[@id=\"isc_5J\"]/h3/center/font[2]/strong").toString().split(":");
-                    }
 
+                        try {
+                            suConfirm = loginInfoPanel.chromeDriver.findElementByXPath("//*[@id=\"isc_5Ctable\"]/tbody/tr/td[1]/div/nobr").getText().equals(this.subject);
+                            coConfirm = loginInfoPanel.chromeDriver.findElementByXPath("//*[@id=\"isc_5Ctable\"]/tbody/tr/td[2]/div/nobr").getText().equals(this.courseNo);
+                            seConfirm = loginInfoPanel.chromeDriver.findElementByXPath("//*[@id=\"isc_5Ctable\"]/tbody/tr/td[3]/div/nobr").getText().equals(this.sectionNo);
+                            exists = suConfirm && coConfirm && seConfirm;
+                        } catch (Exception exception) {
+                            exists = false;
+                        }
+
+                    }
                     break;
 
                 case "safari":
@@ -118,17 +167,37 @@ public class WaitListPanel extends JPanel {
                         waitsf.until(ExpectedConditions.visibilityOfElementLocated(By.id("isc_5A")));
                     }
 
-                    loginInfoPanel.safariDriver.findElementByName("SUBJECT").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^A-Za-z]+", ""));
-                    loginInfoPanel.safariDriver.findElementByName("COURSENO").sendKeys(this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^0-9]", ""));
+                    loginInfoPanel.safariDriver.findElementByName("SUBJECT").sendKeys(subject);
+                    loginInfoPanel.safariDriver.findElementByName("COURSENO").sendKeys(courseNo);
+                    loginInfoPanel.safariDriver.findElementByName("SECTIONNO").sendKeys(sectionNo);
 
                     if (Globals.doubleLogin) {
                         loginInfoPanel.safariDriver.findElementById("isc_5X").click();
                         nextdate = loginInfoPanel.safariDriver.findElementByXPath("//*[@id=\"isc_65\"]/h3/center/font[1]/strong").toString().split("/");
                         nexttime = loginInfoPanel.safariDriver.findElementByXPath("//*[@id=\"isc_65\"]/h3/center/font[2]/strong").toString().split(":");
+
+                        try {
+                            suConfirm = loginInfoPanel.safariDriver.findElementByXPath("//*[@id=\"isc_5Ytable\"]/tbody/tr/td[1]/div/nobr").getText().equals(this.subject);
+                            coConfirm = loginInfoPanel.safariDriver.findElementByXPath("//*[@id=\"isc_5Ytable\"]/tbody/tr/td[2]/div/nobr").getText().equals(this.courseNo);
+                            seConfirm = loginInfoPanel.safariDriver.findElementByXPath("//*[@id=\"isc_5Ytable\"]/tbody/tr/td[3]/div/nobr").getText().equals(this.sectionNo);
+                            exists = suConfirm && coConfirm && seConfirm;
+                        } catch (Exception exception) {
+                            exists = false;
+                        }
                     } else {
                         loginInfoPanel.safariDriver.findElementById("isc_5A").click();
                         nextdate = loginInfoPanel.safariDriver.findElementByXPath("//*[@id=\"isc_5J\"]/h3/center/font[1]/strong").toString().split("/");
                         nexttime = loginInfoPanel.safariDriver.findElementByXPath("//*[@id=\"isc_5J\"]/h3/center/font[2]/strong").toString().split(":");
+
+                        try {
+                            suConfirm = loginInfoPanel.safariDriver.findElementByXPath("//*[@id=\"isc_5Ctable\"]/tbody/tr/td[1]/div/nobr").getText().equals(this.subject);
+                            coConfirm = loginInfoPanel.safariDriver.findElementByXPath("//*[@id=\"isc_5Ctable\"]/tbody/tr/td[2]/div/nobr").getText().equals(this.courseNo);
+                            seConfirm = loginInfoPanel.safariDriver.findElementByXPath("//*[@id=\"isc_5Ctable\"]/tbody/tr/td[3]/div/nobr").getText().equals(this.sectionNo);
+                            exists = suConfirm && coConfirm && seConfirm;
+                        } catch (Exception exception) {
+                            exists = false;
+                        }
+
                     }
                     break;
             }
@@ -145,6 +214,11 @@ public class WaitListPanel extends JPanel {
             } catch (java.text.ParseException ignored) {}
             int value = (int) this.waitListPanel.waitListCoursesPanel.frequency1.getValue();
 
+            try {
+                Thread.sleep(100000000);
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
+            }
             switch (Globals.driver) {
                 case "opera":
                     WebElement sgBox = loginInfoPanel.operaDriver.findElementByClassName("gwt-SuggestBox");
@@ -159,6 +233,7 @@ public class WaitListPanel extends JPanel {
                     },0,value,TimeUnit.SECONDS);
 
                     break;
+                //*[@id="isc_66table"]/tbody/tr/td[1]/div/nobr
 
                 case "chrome":
 
