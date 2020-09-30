@@ -7,7 +7,6 @@ public class SISGUI {
 
         String OsInfo = System.getProperty("os.name").split(" ")[0];
 
-
         if (OsInfo.equals("Linux")) {
             JOptionPane.showMessageDialog(null, "Linux is not supported");
             System.exit(-1);

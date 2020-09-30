@@ -21,9 +21,6 @@ public class LoginInfoPanel extends JPanel {
     JFrame jFrame;
     JTabbedPane jTabbedPane;
     WebDriver driver;
-    ChromeDriver chromeDriver;
-    OperaDriver operaDriver;
-    SafariDriver safariDriver;
 
     public static String OsInfo;
 
@@ -153,7 +150,7 @@ public class LoginInfoPanel extends JPanel {
 
         driver.findElement(By.id("username")).sendKeys(username);
         driver.findElement(By.id("password")).sendKeys(password);
-        Select select = new Select(chromeDriver.findElementById("language"));
+        Select select = new Select(driver.findElement(By.id("language")));
         select.selectByValue("en");
         driver.findElement(By.id("submit")).click();
 

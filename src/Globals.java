@@ -1,5 +1,4 @@
 class Globals {
-    public static String driver = "";
     public static String OsInfo = "";
     private static String username = "";
     private static String password = "";
