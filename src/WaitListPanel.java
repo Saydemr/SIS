@@ -60,153 +60,55 @@ public class WaitListPanel extends JPanel {
             boolean exists = false;
             String[] nextdate = null;
             String[] nexttime = null;
-            switch (Globals.driver) {
-                case "opera":
-                    WebElement sgBox = loginInfoPanel.operaDriver.findElementByClassName("gwt-SuggestBox");
-                    sgBox.sendKeys("Sections");
-                    sgBox.sendKeys(Keys.TAB);
 
-                    WebDriverWait wait = new WebDriverWait(loginInfoPanel.operaDriver, 5,0);
-                    if (Globals.doubleLogin) {
-                        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("isc_5X")));
-                    } else {
-                        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("isc_5A")));
-                    }
+            WebElement sgBox = loginInfoPanel.driver.findElement(By.className("gwt-SuggestBox"));
+            sgBox.sendKeys("Sections");
+            sgBox.sendKeys(Keys.TAB);
 
-                    loginInfoPanel.operaDriver.findElementByName("SUBJECT").sendKeys(subject);
-                    loginInfoPanel.operaDriver.findElementByName("COURSENO").sendKeys(courseNo);
-                    loginInfoPanel.operaDriver.findElementByName("SECTIONNO").sendKeys(sectionNo);
-
-                    if (Globals.doubleLogin) {
-                        loginInfoPanel.operaDriver.findElementById("isc_5X").click();
-                        nextdate = loginInfoPanel.operaDriver.findElementByXPath("//*[@id=\"isc_65\"]/h3/center/font[1]/strong").getText().split("/");
-                        nexttime = loginInfoPanel.operaDriver.findElementByXPath("//*[@id=\"isc_65\"]/h3/center/font[2]/strong").getText().split(":");
-
-                        try {
-                            suConfirm = loginInfoPanel.operaDriver.findElementByXPath("//*[@id=\"isc_5Ytable\"]/tbody/tr/td[1]/div/nobr").getText().equals(this.subject);
-                            coConfirm = loginInfoPanel.operaDriver.findElementByXPath("//*[@id=\"isc_5Ytable\"]/tbody/tr/td[2]/div/nobr").getText().equals(this.courseNo);
-                            seConfirm = loginInfoPanel.operaDriver.findElementByXPath("//*[@id=\"isc_5Ytable\"]/tbody/tr/td[3]/div/nobr").getText().equals(this.sectionNo);
-                            exists = suConfirm && coConfirm && seConfirm;
-                        } catch (Exception exception) {
-                            exists = false;
-                        }
-                    }
-                    else {
-                        loginInfoPanel.operaDriver.findElementById("isc_5A").click();
-                        nextdate = loginInfoPanel.operaDriver.findElementByXPath("//*[@id=\"isc_5J\"]/h3/center/font[1]/strong").getText().split("/");
-                        nexttime = loginInfoPanel.operaDriver.findElementByXPath("//*[@id=\"isc_5J\"]/h3/center/font[2]/strong").getText().split(":");
-
-                        try {
-                            suConfirm = loginInfoPanel.operaDriver.findElementByXPath("//*[@id=\"isc_5Ctable\"]/tbody/tr/td[1]/div/nobr").getText().equals(this.subject);
-                            coConfirm = loginInfoPanel.operaDriver.findElementByXPath("//*[@id=\"isc_5Ctable\"]/tbody/tr/td[2]/div/nobr").getText().equals(this.courseNo);
-                            seConfirm = loginInfoPanel.operaDriver.findElementByXPath("//*[@id=\"isc_5Ctable\"]/tbody/tr/td[3]/div/nobr").getText().equals(this.sectionNo);
-                            exists = suConfirm && coConfirm && seConfirm;
-                        } catch (Exception exception) {
-                            exists = false;
-                        }
-                    }
-
-                    break;
-
-                case "chrome":
-
-                    WebElement sgBoxch = loginInfoPanel.chromeDriver.findElementByClassName("gwt-SuggestBox");
-                    sgBoxch.sendKeys("Sections");
-                    sgBoxch.sendKeys(Keys.TAB);
-
-                    WebDriverWait waitch = new WebDriverWait(loginInfoPanel.chromeDriver, 5,0);
-                    if (Globals.doubleLogin) {
-                        waitch.until(ExpectedConditions.visibilityOfElementLocated(By.id("isc_5X")));
-                    } else {
-                        waitch.until(ExpectedConditions.visibilityOfElementLocated(By.id("isc_5A")));
-                    }
-
-                    loginInfoPanel.chromeDriver.findElementByName("SUBJECT").sendKeys(subject);
-                    loginInfoPanel.chromeDriver.findElementByName("COURSENO").sendKeys(courseNo);
-                    loginInfoPanel.chromeDriver.findElementByName("SECTIONNO").sendKeys(sectionNo);
-
-                    if (Globals.doubleLogin) {
-                        loginInfoPanel.chromeDriver.findElementById("isc_5X").click();
-                        nextdate = loginInfoPanel.chromeDriver.findElementByXPath("//*[@id=\"isc_65\"]/h3/center/font[1]/strong").toString().split("/");
-                        nexttime = loginInfoPanel.chromeDriver.findElementByXPath("//*[@id=\"isc_65\"]/h3/center/font[2]/strong").toString().split(":");
-                        try {
-                            suConfirm = loginInfoPanel.chromeDriver.findElementByXPath("//*[@id=\"isc_5Ytable\"]/tbody/tr/td[1]/div/nobr").getText().equals(this.subject);
-                            coConfirm = loginInfoPanel.chromeDriver.findElementByXPath("//*[@id=\"isc_5Ytable\"]/tbody/tr/td[2]/div/nobr").getText().equals(this.courseNo);
-                            seConfirm = loginInfoPanel.chromeDriver.findElementByXPath("//*[@id=\"isc_5Ytable\"]/tbody/tr/td[3]/div/nobr").getText().equals(this.sectionNo);
-                            exists = suConfirm && coConfirm && seConfirm;
-                        } catch (Exception exception) {
-                            exists = false;
-                        }
-
-                    } else {
-                        loginInfoPanel.chromeDriver.findElementById("isc_5A").click();
-                        nextdate = loginInfoPanel.chromeDriver.findElementByXPath("//*[@id=\"isc_5J\"]/h3/center/font[1]/strong").toString().split("/");
-                        nexttime = loginInfoPanel.chromeDriver.findElementByXPath("//*[@id=\"isc_5J\"]/h3/center/font[2]/strong").toString().split(":");
-
-                        try {
-                            suConfirm = loginInfoPanel.chromeDriver.findElementByXPath("//*[@id=\"isc_5Ctable\"]/tbody/tr/td[1]/div/nobr").getText().equals(this.subject);
-                            coConfirm = loginInfoPanel.chromeDriver.findElementByXPath("//*[@id=\"isc_5Ctable\"]/tbody/tr/td[2]/div/nobr").getText().equals(this.courseNo);
-                            seConfirm = loginInfoPanel.chromeDriver.findElementByXPath("//*[@id=\"isc_5Ctable\"]/tbody/tr/td[3]/div/nobr").getText().equals(this.sectionNo);
-                            exists = suConfirm && coConfirm && seConfirm;
-                        } catch (Exception exception) {
-                            exists = false;
-                        }
-
-                    }
-                    break;
-
-                case "safari":
-
-                    WebElement sgBoxsf = loginInfoPanel.safariDriver.findElementByClassName("gwt-SuggestBox");
-                    sgBoxsf.sendKeys("Sections");
-                    sgBoxsf.sendKeys(Keys.TAB);
-
-                    WebDriverWait waitsf = new WebDriverWait(loginInfoPanel.safariDriver, 5,0);
-                    if (Globals.doubleLogin) {
-                        waitsf.until(ExpectedConditions.visibilityOfElementLocated(By.id("isc_5X")));
-                    } else {
-                        waitsf.until(ExpectedConditions.visibilityOfElementLocated(By.id("isc_5A")));
-                    }
-
-                    loginInfoPanel.safariDriver.findElementByName("SUBJECT").sendKeys(subject);
-                    loginInfoPanel.safariDriver.findElementByName("COURSENO").sendKeys(courseNo);
-                    loginInfoPanel.safariDriver.findElementByName("SECTIONNO").sendKeys(sectionNo);
-
-                    if (Globals.doubleLogin) {
-                        loginInfoPanel.safariDriver.findElementById("isc_5X").click();
-                        nextdate = loginInfoPanel.safariDriver.findElementByXPath("//*[@id=\"isc_65\"]/h3/center/font[1]/strong").toString().split("/");
-                        nexttime = loginInfoPanel.safariDriver.findElementByXPath("//*[@id=\"isc_65\"]/h3/center/font[2]/strong").toString().split(":");
-
-                        try {
-                            suConfirm = loginInfoPanel.safariDriver.findElementByXPath("//*[@id=\"isc_5Ytable\"]/tbody/tr/td[1]/div/nobr").getText().equals(this.subject);
-                            coConfirm = loginInfoPanel.safariDriver.findElementByXPath("//*[@id=\"isc_5Ytable\"]/tbody/tr/td[2]/div/nobr").getText().equals(this.courseNo);
-                            seConfirm = loginInfoPanel.safariDriver.findElementByXPath("//*[@id=\"isc_5Ytable\"]/tbody/tr/td[3]/div/nobr").getText().equals(this.sectionNo);
-                            exists = suConfirm && coConfirm && seConfirm;
-                        } catch (Exception exception) {
-                            exists = false;
-                        }
-                    } else {
-                        loginInfoPanel.safariDriver.findElementById("isc_5A").click();
-                        nextdate = loginInfoPanel.safariDriver.findElementByXPath("//*[@id=\"isc_5J\"]/h3/center/font[1]/strong").toString().split("/");
-                        nexttime = loginInfoPanel.safariDriver.findElementByXPath("//*[@id=\"isc_5J\"]/h3/center/font[2]/strong").toString().split(":");
-
-                        try {
-                            suConfirm = loginInfoPanel.safariDriver.findElementByXPath("//*[@id=\"isc_5Ctable\"]/tbody/tr/td[1]/div/nobr").getText().equals(this.subject);
-                            coConfirm = loginInfoPanel.safariDriver.findElementByXPath("//*[@id=\"isc_5Ctable\"]/tbody/tr/td[2]/div/nobr").getText().equals(this.courseNo);
-                            seConfirm = loginInfoPanel.safariDriver.findElementByXPath("//*[@id=\"isc_5Ctable\"]/tbody/tr/td[3]/div/nobr").getText().equals(this.sectionNo);
-                            exists = suConfirm && coConfirm && seConfirm;
-                        } catch (Exception exception) {
-                            exists = false;
-                        }
-
-                    }
-                    break;
+            WebDriverWait wait = new WebDriverWait(loginInfoPanel.driver, 5,0);
+            if (Globals.doubleLogin) {
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("isc_5X")));
+            } else {
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("isc_5A")));
             }
+
+            loginInfoPanel.driver.findElement(By.name("SUBJECT")).sendKeys(subject);
+            loginInfoPanel.driver.findElement(By.name("COURSENO")).sendKeys(courseNo);
+            loginInfoPanel.driver.findElement(By.name("SECTIONNO")).sendKeys(sectionNo);
+
+            if (Globals.doubleLogin) {
+                loginInfoPanel.driver.findElement(By.id("isc_5X")).click();
+                nextdate = loginInfoPanel.driver.findElement(By.xpath("//*[@id=\"isc_65\"]/h3/center/font[1]/strong")).getText().split("/");
+                nexttime = loginInfoPanel.driver.findElement(By.xpath("//*[@id=\"isc_65\"]/h3/center/font[2]/strong")).getText().split(":");
+
+                try {
+                    suConfirm = loginInfoPanel.driver.findElement(By.xpath("//*[@id=\"isc_5Ytable\"]/tbody/tr/td[1]/div/nobr")).getText().equals(this.subject);
+                    coConfirm = loginInfoPanel.driver.findElement(By.xpath("//*[@id=\"isc_5Ytable\"]/tbody/tr/td[2]/div/nobr")).getText().equals(this.courseNo);
+                    seConfirm = loginInfoPanel.driver.findElement(By.xpath("//*[@id=\"isc_5Ytable\"]/tbody/tr/td[3]/div/nobr")).getText().equals(this.sectionNo);
+                    exists = suConfirm && coConfirm && seConfirm;
+                } catch (Exception exception) {
+                    exists = false;
+                }
+            }
+            else {
+                loginInfoPanel.driver.findElement(By.id("isc_5A")).click();
+                nextdate = loginInfoPanel.driver.findElement(By.xpath("//*[@id=\"isc_5J\"]/h3/center/font[1]/strong")).getText().split("/");
+                nexttime = loginInfoPanel.driver.findElement(By.xpath("//*[@id=\"isc_5J\"]/h3/center/font[2]/strong")).getText().split(":");
+
+                try {
+                    suConfirm = loginInfoPanel.driver.findElement(By.xpath("//*[@id=\"isc_5Ctable\"]/tbody/tr/td[1]/div/nobr")).getText().equals(this.subject);
+                    coConfirm = loginInfoPanel.driver.findElement(By.xpath("//*[@id=\"isc_5Ctable\"]/tbody/tr/td[2]/div/nobr")).getText().equals(this.courseNo);
+                    seConfirm = loginInfoPanel.driver.findElement(By.xpath("//*[@id=\"isc_5Ctable\"]/tbody/tr/td[3]/div/nobr")).getText().equals(this.sectionNo);
+                    exists = suConfirm && coConfirm && seConfirm;
+                } catch (Exception exception) {
+                    exists = false;
+                }
+            }
+
             System.out.println(seConfirm);
             System.out.println(suConfirm);
             System.out.println(coConfirm);
             System.out.println(exists);
-
 
             ScheduledExecutorService schedulerExec = Executors.newScheduledThreadPool(2);
 
@@ -222,52 +124,14 @@ public class WaitListPanel extends JPanel {
             } catch (ParseException ignored) {}
             int value = (int) this.waitListPanel.waitListCoursesPanel.frequency1.getValue();
 
-            switch (Globals.driver) {
-                case "opera":
-                    WebElement sgBox = loginInfoPanel.operaDriver.findElementByClassName("gwt-SuggestBox");
-                    sgBox.sendKeys("Course Reg");
-                    sgBox.sendKeys(Keys.TAB);
+            sgBox.sendKeys("Course Reg");
+            sgBox.sendKeys(Keys.TAB);
 
-                    WebDriverWait wait = new WebDriverWait(loginInfoPanel.operaDriver, 2,500);
-                    wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("")));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("")));
 
-                    schedulerExec.scheduleAtFixedRate(() -> {
+            schedulerExec.scheduleAtFixedRate(() -> {
 
-                    },0,value,TimeUnit.SECONDS);
-
-                    break;
-
-
-                case "chrome":
-
-                    WebElement sgBoxch = loginInfoPanel.chromeDriver.findElementByClassName("gwt-SuggestBox");
-                    sgBoxch.sendKeys("Course Reg");
-                    sgBoxch.sendKeys(Keys.TAB);
-                    WebDriverWait waitch = new WebDriverWait(loginInfoPanel.chromeDriver, 3,500);
-                    waitch.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.className("comboBoxItemPickerCell")));
-
-//                    schedulerExec.scheduleAtFixedRate(() -> {
-//                    },0,value,TimeUnit.SECONDS);
-
-                    break;
-
-                case "safari":
-
-                    WebElement sgBoxsf = loginInfoPanel.safariDriver.findElementByClassName("gwt-SuggestBox");
-                    sgBoxsf.sendKeys("Course Reg");
-                    sgBoxsf.sendKeys(Keys.TAB);
-
-                    WebDriverWait waitsf = new WebDriverWait(loginInfoPanel.safariDriver, 1,500);
-                    waitsf.until(ExpectedConditions.visibilityOfElementLocated(By.name("SUBJECT")));
-
-                    schedulerExec.scheduleAtFixedRate(() -> {
-
-
-
-                    },0,value,TimeUnit.SECONDS);
-
-                    break;
-            }
+            },0,value,TimeUnit.SECONDS);
         }
     }
 
@@ -277,43 +141,12 @@ public class WaitListPanel extends JPanel {
         if (delay < 30000) {
             executorService.schedule(() -> {
 
-                switch (Globals.driver) {
-                    case "opera" :
+                WebElement sBox = loginInfoPanel.driver.findElement(By.className("gwt-SuggestBox"));
+                sBox.sendKeys("Course Reg");
+                sBox.sendKeys(Keys.ENTER);
 
-                        WebElement sBox = loginInfoPanel.operaDriver.findElementByClassName("gwt-SuggestBox");
-                        sBox.sendKeys("Course Reg");
-                        sBox.sendKeys(Keys.ENTER);
-
-                        //TODO passing the course and checking the register
-
-                        loginInfoPanel.operaDriver.findElementById("isc_3J").click();
-
-                        break;
-
-                    case "chrome" :
-
-                        WebElement sBoxch = loginInfoPanel.chromeDriver.findElementByClassName("gwt-SuggestBox");
-                        sBoxch.sendKeys("Course Reg");
-                        sBoxch.sendKeys(Keys.ENTER);
-
-                        //TODO passing the course and checking the register
-
-                        loginInfoPanel.chromeDriver.findElementById("isc_3J").click();
-
-                        break;
-
-                    case "safari" :
-
-                        WebElement sBoxsf = loginInfoPanel.safariDriver.findElementByClassName("gwt-SuggestBox");
-                        sBoxsf.sendKeys("Course Reg");
-                        sBoxsf.sendKeys(Keys.ENTER);
-
-                        //TODO passing the course and checking the register
-
-                        loginInfoPanel.safariDriver.findElementById("isc_3J").click();
-
-                        break;
-                }
+                  //TODO passing the course and checking the register
+                loginInfoPanel.driver.findElement(By.id("isc_3J")).click();
 
             },delay, TimeUnit.MILLISECONDS);
         }
@@ -325,7 +158,6 @@ public class WaitListPanel extends JPanel {
             }
 
             scheduleTask(localDateTime,executorService);
-
         }
     }
     public String subjectConverter(String sub) {
