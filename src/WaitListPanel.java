@@ -54,9 +54,6 @@ public class WaitListPanel extends JPanel {
             this.subject = this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^A-Za-z]+", "");
             this.courseNo = this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^0-9]+", "");
             this.sectionNo = this.waitListPanel.waitListCoursesPanel.section1.getText().replaceAll("[^A-Za-z]+", "");
-            System.out.println(subject);
-            System.out.println(courseNo);
-            System.out.println(sectionNo);
 
             loginInfoPanel.jTabbedPane.setEnabled(false);
             waitListPanel.startWaitList.setEnabled(false);
@@ -109,16 +106,9 @@ public class WaitListPanel extends JPanel {
                 }
             }
 
-            System.out.println(seConfirm);
-            System.out.println(suConfirm);
-            System.out.println(coConfirm);
-            System.out.println(subject);
-            System.out.println(courseNo);
-            System.out.println(sectionNo);
-            System.out.println(exists);
             LocalDateTime dateTime;
 
-            ScheduledExecutorService schedulerExec = Executors.newScheduledThreadPool(4);
+            ScheduledExecutorService schedulerExec = Executors.newScheduledThreadPool(3);
             
             loginInfoPanel.driver.findElement(By.id("isc_46")).click();
 
@@ -168,6 +158,7 @@ public class WaitListPanel extends JPanel {
         long delay = ChronoUnit.MILLIS.between(LocalDateTime.now(),localDateTime);
         if (delay < 30000) {
             executorService.schedule(() -> {
+
                 //TODO passing the course and checking the register
 
                 loginInfoPanel.driver.findElement(By.id("isc_3J")).click();
@@ -187,8 +178,26 @@ public class WaitListPanel extends JPanel {
     public String subjectConverter(String sub) {
         String subj = sub.toUpperCase();
         switch (subj) {
+            case "ACCT" :
+                return "Accounting";
+            case "ARB" :
+                return "Arabic";
+            case "ARCH" :
+                return "Architecture";
+            case "ART" :
+                return "Art";
             case "AVM" :
                 return  "Aviation Management";
+            case "AVT" :
+                return "Aviation";
+            case "BUS" :
+                return "Business Administration";
+            case "CE" :
+                return "Civil Engineering";
+            case "CHEM" :
+                return "Chemistry";
+            case "CHN" :
+                return "Chinese";
             case "FE" :
                 return  "Engineering Facultyie";
             case "LAW" :
