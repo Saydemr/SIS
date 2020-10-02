@@ -54,6 +54,9 @@ public class WaitListPanel extends JPanel {
             this.subject = this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^A-Za-z]+", "");
             this.courseNo = this.waitListPanel.waitListCoursesPanel.course1.getText().replaceAll("[^0-9]+", "");
             this.sectionNo = this.waitListPanel.waitListCoursesPanel.section1.getText().replaceAll("[^A-Za-z]+", "");
+            System.out.println(subject);
+            System.out.println(courseNo);
+            System.out.println(sectionNo);
 
             loginInfoPanel.jTabbedPane.setEnabled(false);
             waitListPanel.startWaitList.setEnabled(false);
@@ -66,7 +69,8 @@ public class WaitListPanel extends JPanel {
             sgBox.sendKeys("Sections");
             sgBox.sendKeys(Keys.TAB);
 
-            WebDriverWait wait = new WebDriverWait(loginInfoPanel.driver, 5,0);
+            WebDriverWait wait = new WebDriverWait(loginInfoPanel.driver, 4,750);
+
             if (Globals.doubleLogin) {
                 wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("isc_5X")));
             } else {
@@ -108,35 +112,54 @@ public class WaitListPanel extends JPanel {
             System.out.println(seConfirm);
             System.out.println(suConfirm);
             System.out.println(coConfirm);
+            System.out.println(subject);
+            System.out.println(courseNo);
+            System.out.println(sectionNo);
             System.out.println(exists);
+            LocalDateTime dateTime;
 
-            ScheduledExecutorService schedulerExec = Executors.newScheduledThreadPool(1);
+            ScheduledExecutorService schedulerExec = Executors.newScheduledThreadPool(4);
+            
+            loginInfoPanel.driver.findElement(By.id("isc_46")).click();
+
+            WebElement sBox = loginInfoPanel.driver.findElement(By.className("gwt-SuggestBox"));
+            sBox.sendKeys("Course Reg");
+            sBox.sendKeys(Keys.TAB);
 
             if (exists) {
-                LocalDate date = LocalDate.of(Integer.parseInt(nextdate[2]),Integer.parseInt(nextdate[1]),Integer.parseInt(nextdate[0]));
-                LocalTime time = LocalTime.of(Integer.parseInt(nexttime[2]),Integer.parseInt(nexttime[1]),Integer.parseInt(nexttime[0]));
-                LocalDateTime dateTime = LocalDateTime.of(date,time);
-                scheduleTask(dateTime,schedulerExec);
+                LocalDate date = LocalDate.of(Integer.parseInt(nextdate[2]), Integer.parseInt(nextdate[1]), Integer.parseInt(nextdate[0]));
+                LocalTime time = LocalTime.of(Integer.parseInt(nexttime[2]), Integer.parseInt(nexttime[1]), Integer.parseInt(nexttime[0]));
+                dateTime = LocalDateTime.of(date, time);
+                scheduleTask(dateTime, schedulerExec);
+            } else {
+                try {
+                    waitListCoursesPanel.frequency1.commitEdit();
+                } catch (ParseException ignored) {}
+                int value = (int) waitListCoursesPanel.frequency1.getValue();
+
+                String courseNameConverted = subjectConverter(subject);
+
+                if (Globals.doubleLogin) {
+                    wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("isc_7I")));
+                    loginInfoPanel.driver.findElement(By.id("isc_7I")).sendKeys(subject);
+                    wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='"+ courseNameConverted + "']")));
+                    loginInfoPanel.driver.findElement(By.xpath("//*[text()='"+ courseNameConverted + "']")).click();
+                    WebElement courseNoField = loginInfoPanel.driver.findElement(By.name("COURSENO"));
+                    courseNoField.click();
+                    courseNoField.sendKeys(courseNo);
+
+                } else {
+
+                }
+
+//                List<WebElement> elementList = loginInfoPanel.driver.findElements(By.tagName("SUBJECT"));
+//                elementList.get(0).sendKeys(subject);
+
+                schedulerExec.scheduleAtFixedRate(() -> {
+
+                },0,value,TimeUnit.SECONDS);
             }
 
-            System.out.println(seConfirm);
-            System.out.println(suConfirm);
-            System.out.println(coConfirm);
-            System.out.println(exists);
-
-            try {
-                this.waitListPanel.waitListCoursesPanel.frequency1.commitEdit();
-            } catch (ParseException ignored) {}
-            int value = (int) this.waitListPanel.waitListCoursesPanel.frequency1.getValue();
-
-            sgBox.sendKeys("Course Reg");
-            sgBox.sendKeys(Keys.TAB);
-
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("")));
-
-            schedulerExec.scheduleAtFixedRate(() -> {
-
-            },0,value,TimeUnit.SECONDS);
         }
     }
 
@@ -145,11 +168,6 @@ public class WaitListPanel extends JPanel {
         long delay = ChronoUnit.MILLIS.between(LocalDateTime.now(),localDateTime);
         if (delay < 30000) {
             executorService.schedule(() -> {
-
-                WebElement sBox = loginInfoPanel.driver.findElement(By.className("gwt-SuggestBox"));
-                sBox.sendKeys("Course Reg");
-                sBox.sendKeys(Keys.TAB);
-
                 //TODO passing the course and checking the register
 
                 loginInfoPanel.driver.findElement(By.id("isc_3J")).click();

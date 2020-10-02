@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class LoginInfoPanel extends JPanel {
+
     JButton initiateSession;
     JRadioButton safari;
     JRadioButton chrome;
