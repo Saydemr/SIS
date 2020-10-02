@@ -269,8 +269,8 @@ public class WaitListPanel extends JPanel {
                 return "Physics";
             case "PLT" :
                 return "Pilot Training";
-            case "PSY" :
-                return "Psychology";
+           // case "PSY" :
+          //      return "Psychology";
             case "RUS" :
                 return "Russian";
             case "SAS" :
