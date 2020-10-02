@@ -183,6 +183,7 @@ public class WaitListPanel extends JPanel {
             case "ARB" :
                 return "Arabic";
             case "ARCH" :
+            case "MİM" :
                 return "Architecture";
             case "ART" :
                 return "Art";
@@ -198,17 +199,97 @@ public class WaitListPanel extends JPanel {
                 return "Chemistry";
             case "CHN" :
                 return "Chinese";
+            case "CINE" :
+                return "Cinema";
+            case "COD" :
+                return "Communication Design";
+            case "CS" :
+                return  "Computer Science";
+            case "DIS" :
+                return "Design";
+            case "DS" :
+                return "Data Science";
+            case "ECON" :
+                return "Economy";
+            case  "EE" :
+                return  "Electrical and Electronics Engineering";
+            case "ENG" :
+                return "English";
+            case "ENTR" :
+                return "Entrepreneurship";
+            case "FERM" :
+                return "Financial Engineering and Risk Management";
+            case "FIN" :
+                return "Finance";
+            case "FRE" :
+                return "French";
+            case "GARM" :
+                return "Gastronomy and Restaurant Management";
+            case "GER" :
+                return "German";
+            case "GSE" :
+                return "GSSE";
+            case "HIST" :
+                return "History";
+            case "HMAN" :
+                return "Hotel Management";
+            case "HUM" :
+                return "Humanities";
+            case "IBUS" :
+                return "International Business";
+            case "IDE" :
+                return "Industrial Design";
+            case "IE" :
+                return "Industrial Engineering";
+            case "INAR" :
+                return "Interior Architecture and Environmental Design";
+            case "IR" :
+                return "International Relations";
+            case "ITA" :
+                return "Italian";
+            case "KMI" :
+                return "City and Architecture";
+            case "MATH" :
+                return "Mathematics";
+            case "ME" :
+                return "Mechanical Engineering";
+            case "MGMT" :
+                return "Management";
+            case "MIS" :
+                return "Management Information System";
+            case "MKTG" :
+                return "Marketing";
+            case "MUSIC" :
+                return "Music";
+            case "OPER" :
+                return "Operations Management";
+            case "PE" :
+                return "Physical Education";
+            case "PHYS" :
+                return "Physics";
+            case "PLT" :
+                return "Pilot Training";
+            case "PSY" :
+                return "Psychology";
+            case "RUS" :
+                return "Russian";
+            case "SAS" :
+                return "School of Applied Sciences";
+            case "SEC" :
+                return "Sectoral Solutions";
+            case "SOC" :
+                return "Sociology";
+            case "SPA" :
+                return "Spanish";
+            case "TLL" :
+                return "Turkish Language and Literature";
+            case "TURK" :
+                return "Turkish";
             case "FE" :
-                return  "Engineering Facultyie";
+                return  "Engineering Faculty";
             case "LAW" :
             case "HUK" :
                 return "Law";
-            case "CS" :
-                return  "Computer Science";
-            case  "EE" :
-                return  "Electrical and Electronics Engineering";
-            case "ME" :
-                return "Mechanical Engineering";
         }
         return "";
     }
