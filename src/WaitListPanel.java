@@ -66,7 +66,7 @@ public class WaitListPanel extends JPanel {
             sgBox.sendKeys("Sections");
             sgBox.sendKeys(Keys.TAB);
 
-            WebDriverWait wait = new WebDriverWait(loginInfoPanel.driver, 4,750);
+            WebDriverWait wait = new WebDriverWait(loginInfoPanel.driver, 5,750);
 
             if (Globals.doubleLogin) {
                 wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("isc_5X")));
@@ -123,6 +123,7 @@ public class WaitListPanel extends JPanel {
                 scheduleTask(dateTime, schedulerExec);
             } else {
                 try {
+                    
                     waitListCoursesPanel.frequency1.commitEdit();
                 } catch (ParseException ignored) {}
                 int value = (int) waitListCoursesPanel.frequency1.getValue();
@@ -130,16 +131,19 @@ public class WaitListPanel extends JPanel {
                 String courseNameConverted = subjectConverter(subject);
 
                 if (Globals.doubleLogin) {
-                    wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("isc_7I")));
-                    loginInfoPanel.driver.findElement(By.id("isc_7I")).sendKeys(subject);
+                    System.out.print("DL");
+                    wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("isc_7J")));
+                    loginInfoPanel.driver.findElement(By.id("isc_7E")).sendKeys(subject);
                     wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='"+ courseNameConverted + "']")));
                     loginInfoPanel.driver.findElement(By.xpath("//*[text()='"+ courseNameConverted + "']")).click();
-                    WebElement courseNoField = loginInfoPanel.driver.findElement(By.name("COURSENO"));
+                    WebElement courseNoField = loginInfoPanel.driver.findElement(By.id("isc_7M"));
                     courseNoField.click();
                     courseNoField.sendKeys(courseNo);
 
-                } else {
+                    loginInfoPanel.driver.findElement(By.id("isc_84")).click();
 
+                } else {
+                    System.out.print("NDL");
                 }
 
 //                List<WebElement> elementList = loginInfoPanel.driver.findElements(By.tagName("SUBJECT"));
