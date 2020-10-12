@@ -123,7 +123,6 @@ public class WaitListPanel extends JPanel {
                 scheduleTask(dateTime, schedulerExec);
             } else {
                 try {
-                    
                     waitListCoursesPanel.frequency1.commitEdit();
                 } catch (ParseException ignored) {}
                 int value = (int) waitListCoursesPanel.frequency1.getValue();
@@ -143,11 +142,21 @@ public class WaitListPanel extends JPanel {
                     loginInfoPanel.driver.findElement(By.id("isc_84")).click();
 
                 } else {
+                    wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("isc_8A")));
+                    loginInfoPanel.driver.findElement(By.id("isc_8B")).sendKeys(subject);
+                    wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='"+ courseNameConverted + "']")));
+                    loginInfoPanel.driver.findElement(By.xpath("//*[text()='"+ courseNameConverted + "']")).click();
+                    WebElement courseNoField = loginInfoPanel.driver.findElement(By.id("isc_8J"));
+                    courseNoField.click();
+                    courseNoField.sendKeys(courseNo);
+
+                    loginInfoPanel.driver.findElement(By.id("isc_91")).click();
+                   // loginInfoPanel.driver.findElement(By.xpath("//nobr[text()='" + sectionNo.toUpperCase() + "']")).click();
                     System.out.print("NDL");
+
                 }
 
-//                List<WebElement> elementList = loginInfoPanel.driver.findElements(By.tagName("SUBJECT"));
-//                elementList.get(0).sendKeys(subject);
+
 
                 schedulerExec.scheduleAtFixedRate(() -> {
 
