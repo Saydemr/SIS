@@ -1,6 +1,4 @@
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -9,6 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -109,8 +108,11 @@ public class WaitListPanel extends JPanel {
             LocalDateTime dateTime;
 
             ScheduledExecutorService schedulerExec = Executors.newScheduledThreadPool(3);
-            
-            loginInfoPanel.driver.findElement(By.id("isc_46")).click();
+            if (Globals.doubleLogin) {
+                loginInfoPanel.driver.findElement(By.id("isc_46")).click();
+            } else {
+                loginInfoPanel.driver.findElement(By.id("isc_3J")).click();
+            }
 
             WebElement sBox = loginInfoPanel.driver.findElement(By.className("gwt-SuggestBox"));
             sBox.sendKeys("Course Reg");
@@ -143,20 +145,31 @@ public class WaitListPanel extends JPanel {
 
                 } else {
                     wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("isc_8A")));
-                    loginInfoPanel.driver.findElement(By.id("isc_8B")).sendKeys(subject);
+                    wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("isc_8B")));
+                    loginInfoPanel.driver.manage().timeouts().pageLoadTimeout(5,TimeUnit.SECONDS);
+                    loginInfoPanel.driver.findElement(By.id("isc_6S")).sendKeys(subject);
                     wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='"+ courseNameConverted + "']")));
                     loginInfoPanel.driver.findElement(By.xpath("//*[text()='"+ courseNameConverted + "']")).click();
-                    WebElement courseNoField = loginInfoPanel.driver.findElement(By.id("isc_8J"));
+                    WebElement courseNoField = loginInfoPanel.driver.findElement(By.id("isc_70"));
                     courseNoField.click();
                     courseNoField.sendKeys(courseNo);
 
-                    loginInfoPanel.driver.findElement(By.id("isc_91")).click();
-                   // loginInfoPanel.driver.findElement(By.xpath("//nobr[text()='" + sectionNo.toUpperCase() + "']")).click();
+                    loginInfoPanel.driver.findElement(By.id("isc_7I")).click();
+
+                    WebElement selectAncestor = loginInfoPanel.driver.findElement(By.xpath("//nobr[text()='"+ subject.toUpperCase() + " " + courseNo + "'] and //[contains(text(),'" + sectionNo.toUpperCase() + "')]"));
+                    System.out.println(selectAncestor.getText());
+                    wait.withTimeout(Duration.ofSeconds(1));
+
+                    JavascriptExecutor jse = (JavascriptExecutor)loginInfoPanel.driver;
+                    jse.executeScript("arguments[0].click()", selectAncestor);
+
                     System.out.print("NDL");
 
                 }
 
 
+
+             //   document.querySelector("#isc_9Stable > tbody > tr:nth-child(1) > td:nth-child(2) > div > nobr > a")
 
                 schedulerExec.scheduleAtFixedRate(() -> {
 
@@ -187,6 +200,9 @@ public class WaitListPanel extends JPanel {
 
             scheduleTask(localDateTime,executorService);
         }
+    }
+    public String getElementXPath(WebDriver driver, WebElement element) {
+        return (String)((JavascriptExecutor)driver).executeScript("gPt=function(c){if(c.id!==''){return'id(\"'+c.id+'\")'}if(c===document.body){return c.tagName}var a=0;var e=c.parentNode.childNodes;for(var b=0;b<e.length;b++){var d=e[b];if(d===c){return gPt(c.parentNode)+'/'+c.tagName+'['+(a+1)+']'}if(d.nodeType===1&&d.tagName===c.tagName){a++}}};return gPt(arguments[0]).toLowerCase();", element);
     }
     public String subjectConverter(String sub) {
         String subj = sub.toUpperCase();
