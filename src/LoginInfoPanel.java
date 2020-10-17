@@ -173,8 +173,7 @@ public class LoginInfoPanel extends JPanel {
         try {
             driver.findElement(By.xpath("//*[@id=\"isc_2H\"]/img")).click();
             Globals.doubleLogin = true;
-        } catch (Exception ignored) {
-        }
+        } catch (Exception ignored) {}
         return true;
     }
 }
