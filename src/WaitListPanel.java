@@ -155,7 +155,7 @@ public class WaitListPanel extends JPanel {
                     courseNoField.sendKeys(courseNo);
 
                     loginInfoPanel.driver.findElement(By.id("isc_7I")).click();
-
+                    // TODO following lines need revision
                     WebElement selectAncestor = loginInfoPanel.driver.findElement(By.xpath("//nobr[text()='"+ subject.toUpperCase() + " " + courseNo + "'] and //[contains(text(),'" + sectionNo.toUpperCase() + "')]"));
                     System.out.println(selectAncestor.getText());
                     wait.withTimeout(Duration.ofSeconds(1));
@@ -166,10 +166,7 @@ public class WaitListPanel extends JPanel {
                     System.out.print("NDL");
 
                 }
-
-
-
-             //   document.querySelector("#isc_9Stable > tbody > tr:nth-child(1) > td:nth-child(2) > div > nobr > a")
+                
 
                 schedulerExec.scheduleAtFixedRate(() -> {
 
@@ -201,9 +198,7 @@ public class WaitListPanel extends JPanel {
             scheduleTask(localDateTime,executorService);
         }
     }
-    public String getElementXPath(WebDriver driver, WebElement element) {
-        return (String)((JavascriptExecutor)driver).executeScript("gPt=function(c){if(c.id!==''){return'id(\"'+c.id+'\")'}if(c===document.body){return c.tagName}var a=0;var e=c.parentNode.childNodes;for(var b=0;b<e.length;b++){var d=e[b];if(d===c){return gPt(c.parentNode)+'/'+c.tagName+'['+(a+1)+']'}if(d.nodeType===1&&d.tagName===c.tagName){a++}}};return gPt(arguments[0]).toLowerCase();", element);
-    }
+
     public String subjectConverter(String sub) {
         String subj = sub.toUpperCase();
         switch (subj) {
