@@ -105,9 +105,6 @@ public class WaitListPanel extends JPanel {
                 }
             }
 
-            LocalDateTime dateTime;
-
-            ScheduledExecutorService schedulerExec = Executors.newScheduledThreadPool(3);
             if (Globals.doubleLogin) {
                 loginInfoPanel.driver.findElement(By.id("isc_46")).click();
             } else {
@@ -117,6 +114,9 @@ public class WaitListPanel extends JPanel {
             WebElement sBox = loginInfoPanel.driver.findElement(By.className("gwt-SuggestBox"));
             sBox.sendKeys("Course Reg");
             sBox.sendKeys(Keys.TAB);
+
+            LocalDateTime dateTime;
+            ScheduledExecutorService schedulerExec = Executors.newScheduledThreadPool(3);
 
             if (exists) {
                 LocalDate date = LocalDate.of(Integer.parseInt(nextdate[2]), Integer.parseInt(nextdate[1]), Integer.parseInt(nextdate[0]));
@@ -166,7 +166,6 @@ public class WaitListPanel extends JPanel {
                     System.out.print("NDL");
 
                 }
-                
 
                 schedulerExec.scheduleAtFixedRate(() -> {
 
@@ -192,8 +191,7 @@ public class WaitListPanel extends JPanel {
 
             try {
                 Thread.sleep(delay/2);
-            } catch (InterruptedException ignored) {
-            }
+            } catch (InterruptedException ignored) {}
 
             scheduleTask(localDateTime,executorService);
         }
