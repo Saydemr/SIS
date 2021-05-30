@@ -1,3 +1,19 @@
+# END OF SERVICE NOTICE
+* This code is not capable of doing what is expected from it due to UI changes on SIS in early 2021. It is still, though, a good source to look at if you want to have a Selenium implementation in any programming language that has to run on dynamic webpages (or specifically on SIS 😈)
+  
+* I gotta mention that I was very relax while I was coding this because a handful of people that I very well know of used it. Therefore this code has tons of bad programming practices in it (Yeah no comments on any line). Again, don't use the code. Take the idea and code yourself.
+   
+* Don't underestimate the code either. I and some other people used this code several times during course registration period and successfully enrolled in courses that had limited quota :) If you want to code the next version and have some questions, reach me out!
+
+<br>
+<br>
+
+### THIS CODE IS DEAD. IT WILL THROW BUNCH OF ERRORS. DON'T TRY TO USE IT!
+### WHY IS IT UP HERE? IDK
+
+<br>
+<br>
+
 # OzU Automated Course Registration
 Ozyegin University SIS fast course registration and waitlisting project. Selenium & Java.
 
@@ -29,5 +45,4 @@ Ozyegin University SIS fast course registration and waitlisting project. Seleniu
 - Write your credentials to sign-in to OzU SIS.
 - Click "Open Session" and wait.
 
-## by Sadikhov, Saydemir and Simitcioglu
- 
+## by ...

@@ -1,3 +1,7 @@
+/*
+    END OF SERVICE
+*/ 
+
 class Globals {
     public static String OsInfo = "";
     private static String username = "";
